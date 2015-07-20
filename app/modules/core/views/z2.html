@@ -1,0 +1,55 @@
+<div layout="column" ng-show="showZ2">
+	<flexible class="top-margin" flex="20" hide-sm></flexible>
+	<div layout="row" flex>
+  	<div flex="30" hide-sm></div>
+
+<md-content class="md-whiteframe-z3" flex style="height:400px" ng-hide="logedIn">
+<login-form layout-padding>
+		<div layout="row" flex>
+  		<md-icon class="login-icon" md-svg-icon="{{ lockIconName }}"></md-icon>
+  	</div>
+		<md-input-container class="md-icon-float" >
+      <label>Courriel</label>
+      <md-icon md-svg-icon="event" class="name"></md-icon>
+      <input ng-model="login.username" type="text">
+    </md-input-container> 
+    <md-input-container class="md-icon-float" >
+      <label>Mot de passe</label>
+      <md-icon md-svg-icon="event" class="name"></md-icon>
+      <input ng-model="login.password" type="password">
+    </md-input-container>    
+  <div class="md-actions" layout="row" layout-align="end center">
+    <md-button class="md-raised" ng-click='a()'>S'enregistrer</md-button>
+    <md-button class="md-raised md-primary" ng-click='login()'>Se connecter</md-button>
+  </div>
+
+</login-form>
+<!--<md-tabs class="md-primary" md-dynamic-height md-border-bottom flex ng-show="logedIn"> 
+		  	<md-tab>
+		    	<md-tab-label>Interventions</md-tab-label>
+		    	<md-tab-body>
+	    			<md-content> 
+	    		
+						</md-content>
+	    		</md-tab-body>
+		  	</md-tab>
+		  	<md-tab id="tab2" ng-disabled="data.secondLocked">
+		    	<md-tab-label>Conversations</md-tab-label>
+		  	</md-tab>
+		  	<md-tab id="tab2" ng-disabled="data.secondLocked">
+		    	<md-tab-label>Conversations</md-tab-label>
+		  	</md-tab>
+		  	<md-tab id="tab2" ng-disabled="data.secondLocked">
+		    	<md-tab-label>Conversations</md-tab-label>
+		  	</md-tab>
+		  	<md-tab id="tab2" ng-disabled="data.secondLocked">
+		    	<md-tab-label>Conversations</md-tab-label>
+		  	</md-tab>
+			</md-tabs>-->
+</md-content>
+
+
+	  	
+  	<div flex="30" hide-sm></div>
+	</div>
+</div>

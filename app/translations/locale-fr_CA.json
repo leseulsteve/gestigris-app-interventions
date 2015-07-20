@@ -1,0 +1,20 @@
+{
+  "LOGIN_FORM": {
+    "EMAIL": {
+      "DESCRIPTION": "Courriel",
+      "ERRORS": {
+        "REQUIRED": "Veuillez inscrire votre courriel",
+        "INVALID": "Adresse courriel non valide"
+      }
+    },
+    "PASSWORD": {
+      "DESCRIPTION": "Mot de passe",
+      "ERRORS": {
+        "REQUIRED": "Veuillez inscrire votre mot de passe"
+      }
+    },
+    "BUTTONS": {
+      "SIGN_IN": "Se connecter"
+    }
+  }
+}
