@@ -16,7 +16,7 @@ module.exports = function (grunt) {
     watch: {
 
       options: {
-        livereload: true
+        livereload: 1337
       },
 
       bower: {
@@ -57,9 +57,9 @@ module.exports = function (grunt) {
 
     connect: {
       options: {
-        port: 9000,
+        port: 9001,
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 1337
       },
       livereload: {
         options: {

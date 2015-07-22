@@ -4,7 +4,7 @@
   </div>
   <form name="loginForm"
         novalidate  
-        ng-submit="login(loginForm, credentials)">
+        ng-submit="signin(loginForm, credentials)">
     <md-input-container class="md-icon-float">
       <label translate="LOGIN_FORM.EMAIL.DESCRIPTION"></label>
       <md-icon md-svg-icon="event" class="name"></md-icon>
@@ -34,6 +34,8 @@
     <div class="md-actions" layout="row">
       <md-button class="md-raised md-primary" flex type="submit" translate="LOGIN_FORM.BUTTONS.SIGN_IN" aria-label="{{'LOGIN_FORM.BUTTONS.SIGN_IN' | translate}}"></md-button>
     </div>
+
+    <div ng-click="resetPassword()" class="text-center" translate="LOGIN_FORM.PASSWORD.RESET_PASSWORD"></div>
     
   </form>
 </md-content>

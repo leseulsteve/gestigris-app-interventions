@@ -11,7 +11,8 @@
       "DESCRIPTION": "Mot de passe",
       "ERRORS": {
         "REQUIRED": "Veuillez inscrire votre mot de passe"
-      }
+      },
+      "RESET_PASSWORD": "j'ai oublié mon mot de passe"
     },
     "BUTTONS": {
       "SIGN_IN": "Se connecter"

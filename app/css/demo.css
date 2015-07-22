@@ -102,10 +102,6 @@ app-bar.login md-toolbar {
   }
 }
 
-.text-center {
-  text-align: center;
-}
-
 .avatar {
   width: 90px;
   height: 90px;

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('users').directive('login',
-  function ($animate, $timeout) {
+  function ($animate, $timeout, UserAuth) {
     return {
       // name: '',
       // priority: 1,
@@ -15,6 +15,10 @@ angular.module('users').directive('login',
       // transclude: true,
       // compile: function (tElement) {},  
       link: function (scope, element) {
+
+        scope.resetPassword = function () {
+          UserAuth.resetPassword('admin@gmail.com');
+        };
 
         scope.lockIconName = 'lock_outline';
 
