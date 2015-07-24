@@ -17,7 +17,7 @@ angular.module('users').directive('login',
       link: function (scope, element) {
 
         scope.resetPassword = function () {
-          UserAuth.resetPassword('admin@gmail.com');
+          UserAuth.sendPasswordToken('admin@gmail.com');
         };
 
         scope.lockIconName = 'lock_outline';
