@@ -9,7 +9,7 @@
     "angular-ui-router": "~0.2.15",
     "material-design-icons": "~2.0.0",
     "lodash": "~3.10.0",
-    "ng-user-auth": "git@github.com:leseulsteve/ng-user-auth.git",
+    "angular-user-auth": "git+https://github.com/leseulsteve/angular-user-auth.git",
     "angular-messages": "~1.4.3",
     "angular-translate": "~2.7.2"
   }
