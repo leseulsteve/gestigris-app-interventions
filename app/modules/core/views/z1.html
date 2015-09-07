@@ -1,0 +1,20 @@
+<div layout="column" layout-fill ng-show="showZ1">
+	<flexible flex="20" style="min-height:100px"></flexible>
+	<div layout="row" flex>
+		<flexible flex="20"></flexible>
+		<div flex layout-fill layout="column">
+			<md-toolbar elastic-toolbar="[180, 300]" class="md-hue-3 md-whiteframe-z1">
+  			<div class="md-toolbar-tools">
+  				<flexible flex flexible></flexible>
+   				<img src="./img/logopng.png">
+   				<span flex></span>
+   				<md-button class="md-icon-button" aria-label="More" ng-hide="isLogin">
+     				<md-icon md-svg-icon="heart"></md-icon>
+   				</md-button>
+  			</div>
+			</md-toolbar>
+			<main-content flex ng-if="!isLogin"></main-content>
+		</div>
+		<flexible flex="20"></flexible>
+	</div>
+</div>

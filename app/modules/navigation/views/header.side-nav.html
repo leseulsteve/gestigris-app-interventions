@@ -1,0 +1,18 @@
+<md-toolbar layout="column">
+  <div class="md-toolbar-tools">
+  	<img class="logo" src="./img/logopng.png"/>
+  	<span flex></span>
+    <md-button class="md-icon-button" aria-label="More">
+    	<md-icon md-svg-icon="arrow_back" ng-click="closeSideNav()"></md-icon>
+  	</md-button> 
+  </div>
+  <div class="user-name">
+  	<md-list-item class="md-2-line">
+      <md-icon md-svg-icon="account_circle" class="md-avatar"></md-icon>
+      <div class="md-list-item-text">
+        <h3>{{ currentUser.toString() }}</h3>
+  			<h4>{{ currentUser.title }}</h4>
+      </div>
+    </md-list-item>
+  </div>
+</md-toolbar>

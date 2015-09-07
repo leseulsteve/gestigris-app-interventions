@@ -1,0 +1,16 @@
+side-nav-header md-toolbar {
+  padding-top: 8px;
+  height: 200px;
+  min-height: 200px;
+  max-height: 200px;
+}
+
+side-nav-header md-list-item {
+  text-transform: uppercase;
+  padding: 35px 15px !important;
+}
+
+side-nav-header .logo {
+  margin: 20px 0 0 10px;
+  height: 135%;
+}

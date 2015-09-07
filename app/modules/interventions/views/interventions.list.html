@@ -1,0 +1,23 @@
+<card-list-section layout="row">
+	<card-list flex="70">
+		<div ng-repeat="month in list">
+			  		<md-subheader>{{ month.month | date:'MMMM' }}</md-subheader>
+	        	<div layout="row" ng-repeat="item in month.days" layout-padding>
+	        		<div class="timeline" flex="10">
+	        			<p class="text-center" flex>{{ item.day | date:'d'}}<br>{{ item.day | date:'EEE'}}</p>
+	        		</div>
+	    				<div layout="row" flex="90">
+	    					<div layout="column" flex="{{ 100 / locations.length }}" ng-repeat="column in item.locations">
+		    					<etablissement-card ng-repeat="location in column" flex-sm="100" ></etablissement-card>
+								</div>
+							</div>
+	    			</div>
+					</div>
+	</card-list>
+	<contextual-cards layout="column" flex="30">
+	contextual-cards
+	</contextual-cards>
+</card-list-section>
+
+
+	
