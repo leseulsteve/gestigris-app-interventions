@@ -1,0 +1,13 @@
+contextual-card md-card-header {
+  text-align: center;
+  padding-top: 10px;
+}
+
+contextual-card md-card-header md-icon {
+  height: 60px;
+  width: 60px;
+}
+
+contextual-card md-card-content .info-icon {
+  text-align: right;
+}

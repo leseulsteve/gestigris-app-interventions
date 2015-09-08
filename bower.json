@@ -11,6 +11,7 @@
     "angular-user-auth": "git+https://github.com/leseulsteve/angular-user-auth.git",
     "angular-mongoose": "git+https://github.com/leseulsteve/angular-mongoose.git",
     "angular-messages": "~1.4.3",
-    "angular-translate": "~2.7.2"
+    "angular-translate": "~2.7.2",
+    "angular-uuid-service": "~0.1.0"
   }
 }
