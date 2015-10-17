@@ -28,9 +28,12 @@
     "after" : false,
     "afterEach" : false,
     /* tests */
-    "ApplicationConfiguration" : false,
+    "ApplicationConfiguration" : true,
     "inject" : false,
     "expect" : false,
-    "_" : false
+    "_" : false,
+    "moment": false,
+    "jQuery": false,
+    "$": false
   }
 }

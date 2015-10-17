@@ -4,12 +4,13 @@ angular.module('users')
   .config(function ($stateProvider) {
 
     $stateProvider
-    /*.state('login', {
-      url: '/login',
-      templateUrl: 'modules/users/views/login.form.html'
-    })*/
 
-      .state('reset_password', {
+      .state('login', {
+      url: '/login',
+      template: '<login></login>'
+    })
+
+    .state('reset_password', {
       url: '/reset_password/:token',
       templateUrl: 'modules/users/views/reset-password.form.html',
       controller: function (UserAuth) {

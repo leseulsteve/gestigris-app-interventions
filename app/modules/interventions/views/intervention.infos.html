@@ -1,0 +1,21 @@
+<h3 class="md-headline">{{ 'INTERVENTIONS.INFORMATIONS' | translate | capitalize }}</h3>
+<table class="infos">
+	<tbody>
+		<tr>
+			<td>{{ 'ETABLISSEMENTS.TYPE' | translate | capitalize }} :</td>
+			<td>{{ intervention.etablissement.type.toString() }}</td>
+		</tr>
+		<tr>
+			<td>{{ 'INTERVENTIONS.GROUP_TYPE' | translate | capitalize }} :</td>
+			<td>{{ intervention.type.toString() | capitalize }}</td>
+		</tr>
+		<tr>
+			<td>{{ 'ETABLISSEMENTS.ADRESSE' | translate | capitalize }} :</td>
+			<td>{{ intervention.etablissement.address.toString() }}</td>
+		</tr>
+		<tr>
+			<td>{{ 'ETABLISSEMENTS.DUREE' | translate | capitalize }} :</td>
+			<td>{{ intervention.duree }}</td>
+		</tr>
+	</tbody>
+<table>

@@ -17,5 +17,16 @@
     "BUTTONS": {
       "SIGN_IN": "Se connecter"
     }
+  },
+  "INTERVENTIONS": {
+    "INFORMATIONS": "informations",
+    "PARTICIPANT": "participant",
+    "PARTICIPANTS": "participants",
+    "GROUP_TYPE": "type de groupe"
+  },
+  "ETABLISSEMENTS": {
+    "TYPE": "type d'établissement",
+    "ADRESSE": "adresse",
+    "DUREE": "durée de l'intervention"
   }
 }

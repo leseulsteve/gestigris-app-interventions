@@ -3,15 +3,23 @@
   "version": "0.0.1",
   "description": "Cordova app built with AngularJs",
   "dependencies": {
-    "angular-material": "git+https://github.com/angular/bower-material.git#0.10.1-rc4",
-    "angular-touch": "~1.4.1",
-    "angular-sanitize": "~1.4.1",
+    "angular-touch": "~1.4.5",
+    "angular-sanitize": "~1.4.5",
     "angular-ui-router": "~0.2.15",
     "lodash": "~3.10.0",
     "angular-user-auth": "git+https://github.com/leseulsteve/angular-user-auth.git",
     "angular-mongoose": "git+https://github.com/leseulsteve/angular-mongoose.git",
-    "angular-messages": "~1.4.3",
+    "angular-messages": "~1.4.5",
     "angular-translate": "~2.7.2",
-    "angular-uuid-service": "~0.1.0"
+    "angular-uuid-service": "~0.1.0",
+    "moment": "~2.10.6",
+    "angular-locale": "~0.1.9",
+    "moment-duration-format": "~1.3.0",
+    "jquery": "~2.1.4",
+    "angular-material": "~0.11.4"
+  },
+  "resolutions": {
+    "angular": "~1.4.5",
+    "lodash": "~3.10.1"
   }
 }

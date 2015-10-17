@@ -1,0 +1,18 @@
+<md-dialog>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{ modal.title }}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="modal.cancel()">
+          <md-icon md-svg-src="close" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-display-1">{{ modal.subtitle }}</div>
+      <md-divider></md-divider>
+      <div ng-include src="modal.contentTemplateUrl"></div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

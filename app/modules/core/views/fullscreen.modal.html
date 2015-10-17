@@ -1,0 +1,18 @@
+<md-dialog class="fullscreen-dialog">
+	<md-toolbar class="md-whiteframe-z1">
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="Close Modal" ng-click="modal.cancel()">
+        <md-icon md-svg-icon="close"></md-icon>
+      </md-button>
+      <h2>
+        <span>{{ modal.title }}</span>
+      </h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-display-1">{{ modal.subtitle }}</div>
+    <md-divider></md-divider>
+    <div ng-include src="modal.contentTemplateUrl"></div>
+  </md-dialog-content>
+</md-dialog>

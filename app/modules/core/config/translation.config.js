@@ -3,7 +3,7 @@
 angular.module('core')
   .config(function ($translateProvider) {
 
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    //$translateProvider.useSanitizeValueStrategy('sanitize');
 
     $translateProvider.useStaticFilesLoader({
       prefix: 'translations/locale-',

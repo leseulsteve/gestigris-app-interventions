@@ -1,33 +1,22 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name conversations.Services.Conversation
- * @description Conversation Factory
- */
-angular
-  .module('conversations')
-  .factory('Conversation',
-    function () {
-      return {
+angular.module('conversations').factory('Conversation',
+  function (Schema, Message) {
 
-        find: function () {
-          return [{
-            _id: 1,
-            subject: 'Sujet',
-            messages: [{
-              _id: 1,
-              date: new Date(),
-              author: 1,
-              body: 'Message body'
-            }, {
-              _id: 2,
-              date: new Date(),
-              author: 2,
-              body: 'Message body 2'
-            }],
+    var Conversation = new Schema('conversation');
 
-          }];
-        }
-      };
+    Conversation.post('find', function (next) {
+
+      var that = this;
+
+      Message.find({
+        conversationId: this._id
+      }).then(function (messages) {
+        that.messages = messages;
+        next();
+      });
     });
+
+    return Conversation;
+
+  });

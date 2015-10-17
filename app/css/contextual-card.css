@@ -1,13 +1,19 @@
-contextual-card md-card-header {
+contextual-cards {
+	background-color: grey;
+}
+
+contextual-card md-card {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+contextual-card .card-header {
   text-align: center;
   padding-top: 10px;
+  height: 100%;
 }
 
-contextual-card md-card-header md-icon {
+contextual-card .card-header md-icon {
   height: 60px;
   width: 60px;
-}
-
-contextual-card md-card-content .info-icon {
-  text-align: right;
 }

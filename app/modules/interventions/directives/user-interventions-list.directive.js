@@ -9,8 +9,8 @@ angular.module('interventions').directive('userInterventionsList',
           scope.contextualCard = new ContextualCard({
             icon: 'check',
             title: 'Interventions confirmés',
-            list: interventions,
-            itemTemplate: '{{ item.etablissement.toString() }} {{ item.date.start | date: \'H:mm\' }} - {{ item.date.end | date: \'H:mm\' }}'
+            list: Intervention.groupByDay(interventions),
+            contentTemplateUrl: 'modules/interventions/views/interventions.list.html'
           });
         });
       }

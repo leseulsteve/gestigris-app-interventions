@@ -1,21 +1,7 @@
-<md-card>
-	<md-card-header>
+<md-card ng-show="hasItems">
+	<div class="card-header md-whiteframe-1dp">
   	<md-icon md-svg-icon="{{ contextualCard.icon }}"></md-icon>
     <h1 class="md-headline">{{ contextualCard.title }}</h1>
-	</md-card-header>
-  <md-card-content>
-    <md-list>	
-			<md-list-item ng-repeat="item in contextualCard.list">
-				<div class="md-list-item-text"
-						 flex="90"
-						 layout-fill
-						 ng-include src="contextualCard.itemTemplate">
-				</div>
-				<div flex="10" class="info-icon">
-					<md-icon md-svg-icon="info"></md-icon>
-				</div>
-				<md-divider ng-if="!$last"></md-divider>
-			</md-list-item>
-		</md-list>
-  </md-card-content>
+	</div>
+	<ng-include src="contextualCard.contentTemplateUrl"></ng-include>
 </md-card>

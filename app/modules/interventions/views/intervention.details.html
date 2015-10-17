@@ -1,0 +1,9 @@
+<div layout-gt-sm="row">
+	<div flex-gt-sm="50">
+		<intervention-infos ></intervention-infos>
+		<intervention-participants ng-if="intervention.isParticipating(currentUser)"></intervention-participants>
+	</div>
+	<div flex-gt-sm="50">
+		<intervention-conversation ng-if="intervention.isParticipating(currentUser)"></intervention-conversation>
+	</div>
+</div>

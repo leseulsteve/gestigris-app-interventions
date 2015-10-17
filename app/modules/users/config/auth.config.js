@@ -5,6 +5,7 @@ angular.module('users')
 
     UserAuthProvider.config({
       userSchema: 'User',
+      loginStateName: 'login',
       signinForm: {
         animate: true
       },

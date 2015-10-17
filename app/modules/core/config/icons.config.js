@@ -10,6 +10,7 @@ angular.module('core')
       .icon('check', 'icons/ic_check_48px.svg')
       .icon('warning', 'icons/ic_warning_48px.svg')
       .icon('info', './icons/ic_info_48px.svg')
+      .icon('close', './icons/ic_close_48px.svg')
 
     .icon('info_outline', './icons/ic_info_outline_48px.svg')
 

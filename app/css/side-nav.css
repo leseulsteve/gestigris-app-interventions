@@ -14,3 +14,8 @@ side-nav-header .logo {
   margin: 20px 0 0 10px;
   height: 135%;
 }
+
+intervention-participants avatar > :first-child {
+  height: 80px;
+  width: 80px;
+}
