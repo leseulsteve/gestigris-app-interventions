@@ -1,21 +1,36 @@
-side-nav-header md-toolbar {
-  padding-top: 8px;
-  height: 200px;
-  min-height: 200px;
-  max-height: 200px;
+side-nav [ui-sref] {
+  margin: 0;
 }
 
-side-nav-header md-list-item {
-  text-transform: uppercase;
-  padding: 35px 15px !important;
+.nav-list {
+  margin-top: 16px;
+  display: block;
+  margin-bottom: 20px;
 }
 
-side-nav-header .logo {
-  margin: 20px 0 0 10px;
-  height: 135%;
+.nav-list .md-subheader .md-subheader-inner {
+  padding: 6px 16px 6px 26px;
 }
 
-intervention-participants avatar > :first-child {
-  height: 80px;
-  width: 80px;
+side-nav md-list-item.active {
+  background-color: rgba(158,158,158,0.2);
+}
+
+.nav-list md-list-item.md-2-line,
+.nav-list md-list-item.md-2-line [ui-sref] {
+  padding: 0px !important;
+  min-height: auto !important;
+}
+
+.nav-list md-list-item .md-list-item-text {
+  padding: 6px 16px 6px 26px;
+}
+
+.nav-list md-list-item md-icon {
+  padding: 16px;
+}
+
+md-list-item.plus {
+  min-height: auto !important;
+  padding: 6px 16px 6px 26px;
 }

@@ -1,0 +1,50 @@
+<md-card ng-show="showCard"
+         ui-sref="intervention({plageInterventionId: plage._id})">
+  <etablissement-image height="200px" width="290px" etablissement="plage.etablissement"></etablissement-image>
+  <md-divider></md-divider>
+  <md-card-content>
+  	<div layout="row">
+    	<div class="md-display-3">{{ plage.date.date() }}</div>
+			<div layout="column" style="padding-left:8px;">
+				<div class="md-headline">{{ plage.date.format("MMMM") }}</div>
+				<div>{{ plage.date.year() }}</div>
+			</div>
+		</div>
+    <div layout="row" layout-wrap>
+      <div class="md-caption intervention_tag"
+           ng-repeat="tag in plage.tags | limitTo: limitTags">
+        {{ tag.name }}
+      </div>
+      <div ng-if="plage.tags.length > 2" layout="row"
+           layout-align="center center">
+        <md-icon class="md-caption"
+                 md-svg-icon="{{ limitTags ? 'navigation:expand_more' : 'navigation:expand_less' }}"
+                 ng-click="showMoreTags($event)">
+      </div>
+    </div>
+  </md-card-content>
+  <md-divider></md-divider>
+  <div layout="row" layout-align="center center" layout-margin>
+    <div>{{ plage.count('confirmed') }} <md-icon md-svg-icon="navigation:check">
+      <md-tooltip>
+        <ng-pluralize count="plage.count('confirmed')"
+                      when="{'0': 'confirmé', 
+                             '1': 'confirmé', 
+                             'other': 'confirmés'}">
+        </ng-pluralize>
+      </md-tooltip></md-icon>
+    </div>
+    <div>{{ plage.count('waiting') }} <md-icon md-svg-icon="action:favorite">
+      <md-tooltip>en attente</md-tooltip></md-icon>
+    </div>
+    <div>{{ plage.count('open') }} <md-icon md-svg-icon="action:favorite_border">
+      <md-tooltip>
+        <ng-pluralize count="plage.count('open')"
+                      when="{'0': 'ouvert', 
+                             '1': 'ouvert', 
+                             'other': 'ouverts'}">
+        </ng-pluralize>
+      </md-tooltip></md-icon>
+    </div>
+  </div>
+</md-card>

@@ -1,18 +1,19 @@
 'use strict';
 
-angular.module('core')
+angular.module('interventions')
   .config(function ($stateProvider) {
 
-    $stateProvider
-      .state('interventions', {
-        title: 'Interventions',
-        url: '/interventions',
-        template: '<intervention-section></intervention-section>',
-        nav: {
-          sideNav: {
-            title: 'Interventions',
-            icon: 'forum'
-          }
-        }
-      });
+    $stateProvider.
+
+    state('interventions', {
+      url: '/interventions',
+      templateUrl: 'modules/interventions/views/interventions.section.html',
+      controller: 'InterventionSectionController'
+    }).
+
+    state('intervention', {
+      url: '/interventions/:plageInterventionId',
+      templateUrl: 'modules/interventions/views/plage-intervention.section.html',
+      controller: 'InterventionFicheController'
+    });
   });

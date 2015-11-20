@@ -1,0 +1,9 @@
+<md-content flex>
+  <div ng-hide="conversationFicheCtrl.conversation"
+       layout="row" layout-align="center center" layout-margin>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <conversation-fiche ng-show="conversationFicheCtrl.conversation"
+  		 								conversation="conversationFicheCtrl.conversation">
+  </conversation-fiche>
+</md-content>

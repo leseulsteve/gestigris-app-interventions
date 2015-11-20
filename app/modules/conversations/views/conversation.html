@@ -1,23 +1,26 @@
 <md-list>
-  <md-list-item class="md-2-line" ng-repeat="message in conversation.messages | orderBy : 'date'">
-   	<avatar user-id="message.author._id"></avatar>
+  <md-list-item class="md-2-line" ng-repeat="message in conversation.getMessages() | orderBy : 'date'">
+   	<avatar user="message.getAuthor()"></avatar>
     <div class="md-list-item-text" layout="column">
-      <h3>{{ message.author.toString() }}</h3>
+      <h3>{{ message.getAuthor().toString() }}</h3>
       <p>{{ message.body }}</p>
     </div>
+    <md-button ng-disabled="newMessage.author !== currentUser"
+               ng-click="deleteMessage(message)">
+      Supprimer
+    </md-button>
   </md-list-item>
   <md-divider ></md-divider>
-  <md-list-item class="md-2-line">
-   	<avatar></avatar>
+  <div layout="row">
+   	<avatar user="currentUser"></avatar>
     <md-input-container>
       <label>Nouveau message</label>
       <input ng-model="newMessage.body">
     </md-input-container>
-    <md-icon md-svg-icon="check"
-    			   class="md-secondary md-hue-3"
-    			   aria-label="Nouveau message"
-             ng-click="addMessage(newMessage)"
-             ng-disabled="newMessage === undefined || newMessage.body.length === 0">
-    </md-icon>
-  </md-list-item>
+    <md-button class="md-primary"
+               ng-disabled="newMessage === undefined || newMessage.body.length === 0"
+               ng-click="addMessage(newMessage)">
+      Envoyer
+    </md-button>
+  </div>
 </md-list>

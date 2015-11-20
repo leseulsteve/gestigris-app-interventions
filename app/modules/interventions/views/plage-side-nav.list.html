@@ -1,0 +1,15 @@
+<md-subheader class="md-no-sticky">{{ title }}</md-subheader>
+<md-list-item class="md-2-line"
+							ui-sref-active="active"
+              ui-sref="intervention({plageInterventionId: plage._id})"
+              ng-repeat="plage in plages">
+  <div class="md-list-item-text">
+    <h3>{{ plage.date.format("dddd LL") }}</h3>
+    <h4>{{ plage.etablissement.toString() }}</h4>
+  </div>
+  <md-icon class="md-accent" md-svg-icon="communication:message"></md-icon>
+</md-list-item>
+<md-list-item ng-show="showPlus"
+							class="plus">
+  <span class="md-caption" ng-click="">plus</span>
+</md-list-item>

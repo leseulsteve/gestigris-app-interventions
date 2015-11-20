@@ -6,14 +6,13 @@ angular.module('conversations').factory('Message',
     var Message = new Schema('message');
 
     Message.post('find', function (next) {
-
-      var that = this;
-
-      User.findById(this.author).then(function (user) {
-        that.author = user;
-        next();
-      });
+      this.author = new User(this.author);
+      next();
     });
+
+    Message.prototype.getAuthor = function () {
+      return this.author;
+    };
 
     return Message;
 

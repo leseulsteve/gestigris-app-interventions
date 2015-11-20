@@ -1,0 +1,9 @@
+<md-button class="md-icon-button"
+					 aria-label="{{ state.toolTip }}"
+					 ng-style="button.disabled && { 'cursor':'default' }"
+					 ng-click="button.changeState()">
+  <md-tooltip>
+    {{ state.toolTip }}
+  </md-tooltip>
+  <md-icon md-svg-icon="{{ state.icon }}"></md-icon>
+</md-button>

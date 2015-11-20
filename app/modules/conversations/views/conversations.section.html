@@ -1,0 +1,22 @@
+<md-content flex>
+  <div ng-hide="conversationsSectionCtrl.conversations"
+       layout="row" layout-align="center center" layout-margin>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <div ng-show="conversationsSectionCtrl.conversations"
+       layout="row" layout-align="end center" layout-margin>
+    <div flex="80"></div>
+    <md-select ng-model="conversationsSectionCtrl.selectedFilter">
+      <md-option ng-repeat="option in conversationsSectionCtrl.filters"
+                 ng-value="option">
+        {{option}}
+      </md-option>
+    </md-select>
+  </div>
+  <div layout="row" layout-wrap>
+    <conversation-card flex="33"
+                       conversation="conversation" 
+                       ng-repeat="conversation in conversationsSectionCtrl.conversations"
+    </conversation-card>
+  </div>
+</md-content>

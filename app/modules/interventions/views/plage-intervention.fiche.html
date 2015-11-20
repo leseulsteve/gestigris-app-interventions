@@ -1,0 +1,40 @@
+<div ng-if="showCard"
+  	 class="md-whiteframe-1dp">
+	<etablissement-map etablissement="plage.etablissement"></etablissement-map>
+	<md-divider></md-divider>
+	<div layout-padding>
+		<div layout="row">
+			<div flex="50">
+				<div layout="row">
+	    		<div class="md-display-3">{{ plage.date.date() }}</div>
+					<div layout="column" style="padding-left:8px;">
+						<div class="md-headline">{{ plage.date.format("MMMM") }}</div>
+						<div>{{ plage.date.year() }}</div>
+					</div>
+				</div>
+				<md-list>
+					<md-divider></md-divider>
+      		<md-list-item ng-repeat="intervention in plage.interventions">
+      			<md-divider></md-divider>
+      			<div flex layout="column">
+      				<div layout="row">
+								{{ intervention.date.start.hours() }}:{{ intervention.date.start.minutes() }} - {{ intervention.date.end.hours() }}:{{ intervention.date.end.minutes() }}
+							</div>
+							<div layout="row">
+								<span class="md-caption intervention_tag"
+									 		ng-repeat="type in intervention.types">
+          				{{ type.name }}
+        				</span>
+							</div>
+      			</div>
+						<participation-button intervention="intervention"></participation-button>
+					</md-list-item>
+				</md-list>			
+			</div>
+			<div flex="50">
+				infos sur {{ plage.etablissement.toString() }}
+			</div>
+		</div>
+		<h3 class="md-headline">Messages</h3>
+	</div>
+</div>

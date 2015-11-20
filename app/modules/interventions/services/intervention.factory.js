@@ -1,73 +1,110 @@
 'use strict';
 
 angular.module('interventions').factory('Intervention',
-  function (Schema, Etablissement, Config, Moment, InterventionType) {
+  function ($q, Moment, InterventionMonitor, DemandeParticipation) {
 
-    var Intervention = new Schema('intervention');
+    var Intervention = function (params) {
 
-    Intervention.post('find', function (next) {
-
-      this.date.start = new Moment(this.date.start);
-      this.date.end = new Moment(this.date.end);
+      _.assign(this, params);
 
       var ms = moment(this.date.end).diff(moment(this.date.start));
       this.duree = Moment.duration(ms);
+      this.date.start = new Moment(this.date.start);
+      this.date.end = new Moment(this.date.end);
 
-      var that = this;
-      Etablissement.findById(this.etablissement).then(function (etablissement) {
-        InterventionType.findById(that.type).then(function (type) {
-          that.type = type;
-          that.etablissement = etablissement;
-          next();
+      this.listeners = {
+        stateChange: []
+      };
+      this.monitor = new InterventionMonitor(this, 5000);
+    };
+
+    Intervention.prototype.isOpen = function () {
+      return this.state === 'OPEN';
+    };
+
+    Intervention.prototype.isWaiting = function () {
+      return this.state === 'WAITING';
+    };
+
+    Intervention.prototype.isConfirmed = function () {
+      return this.state === 'CONFIRMED';
+    };
+
+    Intervention.prototype.getState = function () {
+      return this.state;
+    };
+
+    Intervention.prototype.canRegister = function () {
+      return this.isOpen();
+    };
+
+    Intervention.prototype.canUnRegister = function () {
+      return this.isWaiting();
+    };
+
+    function changeState(intervention, stateName) {
+      if (stateName) {
+        intervention.state = stateName;
+      }
+      _.forEach(intervention.listeners.stateChange, function (cb) {
+        cb(intervention);
+      });
+    }
+
+    Intervention.prototype.register = function () {
+      if (this.canRegister()) {
+        var that = this;
+        return DemandeParticipation.create({
+          intervention: this._id
+        }).then(function () {
+          changeState(that, 'WAITING');
         });
-      });
-    });
-
-    Intervention.findProchaines = function (query) {
-      return Intervention.find(query);
+      } else {
+        var deffered = $q.defer();
+        deffered.reject({
+          message: 'Déjà enregistré'
+        });
+        return deffered.promise;
+      }
     };
 
-    Intervention.prototype.toString = function () {
-      return this.etablissement.toString() + ' - ' + this.date.start.format('D MMMM') + ' (' + this.date.start.format('LT') + ' - ' + this.date.end.format('LT') + ')';
+    Intervention.prototype.unregister = function () {
+      if (this.canUnRegister()) {
+        var that = this;
+        return DemandeParticipation.findOne({
+          intervention: this._id
+        }).then(function (demande) {
+          return demande.remove().then(function () {
+            changeState(that, 'OPEN');
+          });
+        });
+      } else {
+        var deffered = $q.defer();
+        deffered.reject({
+          message: this.isConfirmed() ? 'Est déjà confirmé' : 'N\'est pas enregistré'
+        });
+        return deffered.promise;
+      }
     };
 
-    Intervention.groupByDay = function (interventions) {
-      return _.groupBy(_.sortBy(interventions, 'date.start'), function (intervention) {
-        return angular.copy(intervention.date.start).startOf('day');
-      });
-    };
-
-    Intervention.groupByEtablissement = function (interventions) {
-      return _.groupBy(interventions, 'etablissement');
-    };
-
-    Intervention.prototype.isParticipating = function (user) {
-      return _.contains(this.benevoles.confirmes, user._id);
-    };
-
-    Intervention.prototype.getConfirmed = function () {
-      return this.benevoles.confirmes;
-    };
-
-    Intervention.getScheduledInterventions = function (user) {
-      return Intervention.find({
-        'benevoles.confirmes': user._id
-      });
-    };
-
-    Intervention.getUrgentInterventions = function (user) {
-      return Config.get('interventions').then(function (config) {
-        return Intervention.find({
-          'date.start': {
-            $lte: new Moment().add(config.urgentWindowInDays, 'days').format()
-          },
-          'benevoles.confirmes': {
-            $ne: user._id
+    Intervention.prototype.on = function (action, cb) {
+      var that = this;
+      this.listeners[action].push(cb);
+      if (!this.monitor.isMonitoring()) {
+        this.monitor.start(function (rawIntervention) {
+          _.assign(that, rawIntervention);
+          if (rawIntervention.status !== that.status) {
+            changeState(that);
           }
         });
-      });
+      }
+      return function () {
+        _.pull(that.listeners[action], cb);
+        if (that.listeners[action].length === 0) {
+          that.monitor.stop();
+        }
+      };
     };
 
     return Intervention;
-
   });

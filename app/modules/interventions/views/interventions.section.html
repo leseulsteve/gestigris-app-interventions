@@ -1,16 +1,22 @@
-<div layout="row">
-	<div flex="70" layout="column" layout-padding>
-		<h1 class="md-headline">À combler</h1>
-		<div layout="row" flex layout-wrap>
-			<etablissement-interventions-card style="width:400px;"
-																				ng-repeat="data in prochainesInterventions"
-																				etablissement="data.etablissement"
-																				interventions="data.interventions">
-			</etablissement-interventions-card>
-		</div>
-	</div>
-	<contextual-cards layout="column" flex="30">
-		<contextual-card user-interventions-list ></contextual-card>
-		<contextual-card urgences-interventions-list></contextual-card>
-	</contextual-cards>
-</div>
+<md-content flex>
+  <div ng-hide="plagesInterventions"
+       layout="row" layout-align="center center" layout-margin>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <div ng-show="plagesInterventions"
+       layout="row" layout-align="end center" layout-margin>
+  	<div flex="80"></div>
+  	<md-select ng-model="interventionSectionCtrl.selectedFilter">
+      <md-option ng-repeat="option in interventionSectionCtrl.filters"
+      					 ng-value="option">
+      	{{option}}
+      </md-option>
+    </md-select>
+  </div>
+  <div layout="row" layout-wrap>
+		<plage-intervention-card flex="33"
+														 plage="plage" 
+														 ng-repeat="plage in plagesInterventions.open"
+	  </plage-intervention-card>
+  </div>
+</md-content>

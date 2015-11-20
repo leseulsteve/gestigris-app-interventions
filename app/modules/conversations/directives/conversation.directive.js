@@ -1,27 +1,30 @@
 'use strict';
 
 angular.module('conversations').directive('conversation',
-  function (Conversation, Message, $rootScope) {
+  function ($rootScope, Message) {
     return {
       restrict: 'E',
       scope: {
-        id: '='
+        conversation: '='
       },
       templateUrl: 'modules/conversations/views/conversation.html',
       link: function (scope) {
-
-        Conversation.findById(scope.id).then(function (conversation) {
-          scope.conversation = conversation;
-        });
-
         scope.addMessage = function (newMessage) {
-          Message.create(_.assign({
-            author: $rootScope.currentUser._id,
-            conversationId: scope.conversation._id
-          }, newMessage)).then(function (newMessage) {
-            newMessage = {};
-            scope.conversation.messages.push(newMessage);
+          newMessage = new Message(_.assign({
+            conversationId: scope.conversation._id,
+            author: $rootScope.currentUser._id
+          }, newMessage));
+
+          newMessage.save().then(function (message) {
+            scope.conversation.messages.push(message);
           });
+        };
+
+        scope.deleteMessage = function (message) {
+          message.save();
+          /*message.remove().then(function () {
+            _.pull(scope.conversation.messages, message);
+          });*/
         };
       }
     };

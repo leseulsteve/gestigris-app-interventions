@@ -3,16 +3,17 @@
 angular.module('conversations').config(
   function ($stateProvider) {
 
-    $stateProvider
+    $stateProvider.
 
-      .state('conversations', {
+    state('conversations', {
       url: '/conversations',
-      templateUrl: 'modules/conversations/views/conversations.html',
-      nav: {
-        sideNav: {
-          title: 'Conversations',
-          icon: 'forum'
-        }
-      }
+      templateUrl: 'modules/conversations/views/conversations.section.html',
+      controller: 'ConversationsSectionController'
+    }).
+
+    state('conversation', {
+      url: '/conversations/:conversationId',
+      templateUrl: 'modules/conversations/views/conversation.section.html',
+      controller: 'ConversationFicheController'
     });
   });

@@ -1,0 +1,19 @@
+<div ng-if="showCard"
+  	 class="md-whiteframe-1dp">
+  <div layout="row">
+		<conversation-image flex="30" conversation="conversation"></conversation-image>
+		<div flex layout="column">
+			<div>Options de notifications</div>
+			<div>Description</div>
+			<div>Participants</div>
+			<div layout="row" layout-wrap
+					 ng-repeat="participant in conversation.getParticipants()">
+				<avatar user="participant"></avatar>
+			</div>
+		</div>
+	</div>
+	<md-divider></md-divider>
+	<div layout-padding>
+		<conversation conversation="conversation"></conversation>
+	</div>
+</div>

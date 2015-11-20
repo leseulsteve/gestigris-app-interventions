@@ -5,3 +5,7 @@
 .text-right {
   text-align: right;
 }
+
+md-icon:focus {
+  outline: 0;
+}

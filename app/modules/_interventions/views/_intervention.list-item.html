@@ -1,0 +1,11 @@
+<div layout="row">
+	<div layout="row">
+		<div class="md-display-1">{{ intervention.date.start.hours() }}</div>
+		<div style="padding-left:2px;">{{ intervention.date.start.minutes() }}</div>
+	</div>
+	<div layout="column" flex style="padding-left:8px;">
+		<div class="md-subhead" style="padding-top: 8px;font-size: 14px;line-height: 12px;">{{ intervention.type.name }}</div>
+		<div style="font-size: 13px;">{{ intervention.duree.format('h [hrs], m [min]') }}</div>
+	</div>
+	<participation-button intervention="intervention"></participation-button>
+</div>

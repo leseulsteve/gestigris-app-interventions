@@ -1,0 +1,9 @@
+<md-content flex>
+  <div ng-hide="interventionFicheCtrl.plageIntervention"
+       layout="row" layout-align="center center" layout-margin>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+  <plage-intervention-fiche ng-show="interventionFicheCtrl.plageIntervention"
+  		 											plage="interventionFicheCtrl.plageIntervention">
+  </plage-intervention-fiche>
+</md-content>
