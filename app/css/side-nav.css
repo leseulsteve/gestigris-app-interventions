@@ -30,6 +30,15 @@ side-nav md-list-item.active {
   padding: 16px;
 }
 
+.nav-list md-list-item small {
+  line-height: 19px;
+  margin-top: 3px;
+}
+
+.nav-list md-list-item md-divider {
+  margin: 0px 16px 0px 26px;
+}
+
 md-list-item.plus {
   min-height: auto !important;
   padding: 6px 16px 6px 26px;

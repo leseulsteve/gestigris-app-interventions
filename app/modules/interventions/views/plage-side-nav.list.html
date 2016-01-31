@@ -5,9 +5,13 @@
               ng-repeat="plage in plages">
   <div class="md-list-item-text">
     <h3>{{ plage.date.format("dddd LL") }}</h3>
-    <h4>{{ plage.etablissement.toString() }}</h4>
+    <div layout="row">
+      <small ng-show="plage.filteredInterventions" ng-repeat="intervention in plage.filteredInterventions">{{ intervention.hours() }}:{{ intervention.minutes() }}<span ng-if="!last">&nbsp;&nbsp;</span></small>
+    </div>
+    <h4>{{ plage.etablissement.name }}</h4>
   </div>
-  <md-icon class="md-accent" md-svg-icon="communication:message"></md-icon>
+  <md-icon class="md-accent" md-svg-icon="action:announcement"></md-icon>
+  <md-divider ng-if="!$last"></md-divider>
 </md-list-item>
 <md-list-item ng-show="showPlus"
 							class="plus">

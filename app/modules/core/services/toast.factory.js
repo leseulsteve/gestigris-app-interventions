@@ -3,9 +3,14 @@
 angular.module('core').service('Toast',
   function ($mdMedia, $mdToast) {
 
-    var Toast = function (text) {
-      this.template = '<md-toast>' + text + '</md-toast>';
+    var Toast = function (params) {
       this.position = $mdMedia('sm') ? 'bottom fit' : 'bottom left';
+
+      if (_.isString(params)) {
+        this.template = '<md-toast>' + params + '</md-toast>';
+      } else {
+        _.assign(this, params);
+      }
     };
 
     Toast.prototype.show = function () {

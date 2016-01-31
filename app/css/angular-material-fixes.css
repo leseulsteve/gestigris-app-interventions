@@ -1,0 +1,9 @@
+md-input-container.md-icon-float > md-icon {
+  top: 11px;
+}
+
+[ng-messages].ng-hide:not(.ng-hide-animate) {
+  display: block !important;
+  visibility: hidden;
+  cursor: default;
+}

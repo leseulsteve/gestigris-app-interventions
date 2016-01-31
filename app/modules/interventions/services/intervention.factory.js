@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('interventions').factory('Intervention',
-  function ($q, Moment, InterventionMonitor, DemandeParticipation) {
+  function ($q, $http, Schema, Moment) {
 
-    var Intervention = function (params) {
+    var Intervention = new Schema('plage-intervention/:plage/intervention');
 
-      _.assign(this, params);
-
-      var ms = moment(this.date.end).diff(moment(this.date.start));
+    Intervention.post('find', function (next) {
+      var ms = new Moment(this.date.end).diff(new Moment(this.date.start));
       this.duree = Moment.duration(ms);
       this.date.start = new Moment(this.date.start);
       this.date.end = new Moment(this.date.end);
@@ -15,7 +14,12 @@ angular.module('interventions').factory('Intervention',
       this.listeners = {
         stateChange: []
       };
-      this.monitor = new InterventionMonitor(this, 5000);
+
+      next();
+    });
+
+    Intervention.prototype.getState = function () {
+      return this.state;
     };
 
     Intervention.prototype.isOpen = function () {
@@ -28,10 +32,6 @@ angular.module('interventions').factory('Intervention',
 
     Intervention.prototype.isConfirmed = function () {
       return this.state === 'CONFIRMED';
-    };
-
-    Intervention.prototype.getState = function () {
-      return this.state;
     };
 
     Intervention.prototype.canRegister = function () {
@@ -54,9 +54,7 @@ angular.module('interventions').factory('Intervention',
     Intervention.prototype.register = function () {
       if (this.canRegister()) {
         var that = this;
-        return DemandeParticipation.create({
-          intervention: this._id
-        }).then(function () {
+        return $http.post('plage-intervention/' + this.plage + '/intervention/' + this._id + '/demande').then(function () {
           changeState(that, 'WAITING');
         });
       } else {
@@ -71,12 +69,8 @@ angular.module('interventions').factory('Intervention',
     Intervention.prototype.unregister = function () {
       if (this.canUnRegister()) {
         var that = this;
-        return DemandeParticipation.findOne({
-          intervention: this._id
-        }).then(function (demande) {
-          return demande.remove().then(function () {
-            changeState(that, 'OPEN');
-          });
+        return $http.delete('plage-intervention/' + this.plage + '/intervention/' + this._id + '/demande').then(function () {
+          changeState(that, 'OPEN');
         });
       } else {
         var deffered = $q.defer();
@@ -87,6 +81,46 @@ angular.module('interventions').factory('Intervention',
       }
     };
 
+    Intervention.prototype.on = function (action, cb) {
+      var that = this;
+      this.listeners[action].push(cb);
+      /*if (!this.monitor.isMonitoring()) {
+        this.monitor.start(function (rawIntervention) {
+          _.assign(that, rawIntervention);
+          if (rawIntervention.status !== that.status) {
+            changeState(that);
+          }
+        });
+      }*/
+      return function () {
+        _.pull(that.listeners[action], cb);
+        /*if (that.listeners[action].length === 0) {
+          that.monitor.stop();
+        }*/
+      };
+    };
+
+    return Intervention;
+
+    /*var Intervention = function (params) {
+
+      _.assign(this, params);
+
+      var ms = moment(this.date.end).diff(moment(this.date.start));
+      this.duree = Moment.duration(ms);
+      this.date.start = new Moment(this.date.start);
+      this.date.end = new Moment(this.date.end);
+
+      this.listeners = {
+        stateChange: []
+      };
+    };
+
+    
+
+  
+
+    
     Intervention.prototype.on = function (action, cb) {
       var that = this;
       this.listeners[action].push(cb);
@@ -104,7 +138,6 @@ angular.module('interventions').factory('Intervention',
           that.monitor.stop();
         }
       };
-    };
+    };*/
 
-    return Intervention;
   });

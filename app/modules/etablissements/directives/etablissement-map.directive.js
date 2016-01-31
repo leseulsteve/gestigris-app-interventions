@@ -4,14 +4,13 @@ angular.module('etablissements').directive('etablissementMap',
   function ($timeout, leafletData) {
     return {
       restrict: 'E',
-      scope: {
-        etablissement: '='
-      },
+      scope: true,
+      replace: true,
       templateUrl: 'modules/etablissements/views/etablissement.map.html',
-      link: function (scope) {
+      link: function (scope, element, attrs) {
 
-        var unwatch = scope.$watch('etablissement', function (etablissement) {
-          if (etablissement) {
+        var unwatch = scope.$watch(attrs.etablissement, function (etablissement) {
+          if (!_.isUndefined(etablissement)) {
             angular.extend(scope, {
               center: {
                 lat: etablissement.coordinates.lat,

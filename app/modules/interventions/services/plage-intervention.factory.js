@@ -1,74 +1,46 @@
 'use strict';
 
 angular.module('interventions').factory('PlageIntervention',
-  function (Schema, Moment, Etablissement, Intervention) {
+  function (Schema, Moment, Intervention) {
 
-    var PlageIntervention = new Schema('plageintervention');
+    var PlageIntervention = new Schema('plage-intervention');
+
+    PlageIntervention.postFind = function (plage, next) {
+      plage.date = new Moment(plage.date);
+      next();
+    };
 
     PlageIntervention.post('find', function (next) {
-      this.date = new Moment(this.date);
-      this.etablissement = new Etablissement(this.etablissement);
-
-      this.openInterventions = [];
-      this.waitingInterventions = [];
-      this.confirmedInterventions = [];
-
-      this.tags = [];
-
-      function addToTags(tags, types) {
-        _.forEach(types, function (type) {
-          if (!_.contains(_.pluck(tags, '_id'), type._id)) {
-            tags.push(type);
-          }
-        });
-      }
-
-      for (var i = 0; i < this.interventions.length; i++) {
-        var intervention = new Intervention(this.interventions[i]);
-        if (intervention.isOpen()) {
-          this.openInterventions.push(intervention);
-        }
-        if (intervention.isWaiting()) {
-          this.waitingInterventions.push(intervention);
-        }
-        if (intervention.isConfirmed()) {
-          this.confirmedInterventions.push(intervention);
-        }
-
-        addToTags(this.tags, intervention.types);
-
-        _.sortBy(this.tags, 'poids');
-        this.interventions[i] = intervention;
-      }
-      next();
+      PlageIntervention.postFind(this, next);
     });
 
     PlageIntervention.findProchaines = function () {
-      // TODO: filter open
+      // TODO: date
       return PlageIntervention.find();
     };
 
+    PlageIntervention.prototype.getInterventions = function () {
+      var that = this;
+      return Intervention.find({
+        plage: this._id
+      }).then(function (interventions) {
+        _.forEach(interventions, function (intervention) {
+          intervention.plage = that._id;
+        });
+        return interventions;
+      });
+    };
+
     PlageIntervention.prototype.hasOpen = function () {
-      return this.count('open') > 0;
+      return _.contains(this.states, 'OPEN');
     };
 
     PlageIntervention.prototype.hasWaiting = function () {
-      return this.count('waiting') > 0;
+      return _.contains(this.states, 'WAITING');
     };
 
     PlageIntervention.prototype.hasConfirmed = function () {
-      return this.count('confirmed') > 0;
-    };
-
-    PlageIntervention.prototype.count = function (what) {
-      switch (what) {
-      case 'open':
-        return this.openInterventions.length;
-      case 'waiting':
-        return this.waitingInterventions.length;
-      case 'confirmed':
-        return this.confirmedInterventions.length;
-      }
+      return _.contains(this.states, 'CONFIRMED');
     };
 
     return PlageIntervention;

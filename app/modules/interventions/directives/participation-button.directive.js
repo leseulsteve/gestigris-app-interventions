@@ -31,11 +31,11 @@ angular.module('interventions').directive('participationButton',
 
         scope.button = {
           changeState: function () {
-            switch (scope.state) {
-            case states.OPEN:
+            switch (scope.intervention.getState()) {
+            case 'OPEN':
               scope.intervention.register();
               break;
-            case states.WAITING:
+            case 'WAITING':
               scope.intervention.unregister();
               break;
             }

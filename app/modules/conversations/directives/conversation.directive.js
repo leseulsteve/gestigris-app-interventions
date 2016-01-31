@@ -21,10 +21,9 @@ angular.module('conversations').directive('conversation',
         };
 
         scope.deleteMessage = function (message) {
-          message.save();
-          /*message.remove().then(function () {
+          message.remove().then(function () {
             _.pull(scope.conversation.messages, message);
-          });*/
+          });
         };
       }
     };

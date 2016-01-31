@@ -1,9 +1,38 @@
-<md-content flex>
-  <div ng-hide="interventionFicheCtrl.plageIntervention"
+<div flex>
+  <div ng-hide="interventionSectionCtrl.plages"
        layout="row" layout-align="center center" layout-margin>
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
-  <plage-intervention-fiche ng-show="interventionFicheCtrl.plageIntervention"
-  		 											plage="interventionFicheCtrl.plageIntervention">
-  </plage-intervention-fiche>
-</md-content>
+  <div ng-show="plagesInterventions">
+    <div layout="row" layout-align="end center" layout-margin>
+      <md-input-container flex="30">
+        <label style="padding:0 0 5px 5px;">Secteur</label>
+        <md-select ng-model="interventionSectionCtrl.selectedArrondissement"
+                   ng-change="interventionSectionCtrl.filterPlages()"
+                   aria-label="Choix du secteur">
+          <md-option ng-repeat="secteur in interventionSectionCtrl.arrondissements"
+                     ng-value="secteur">
+            {{ secteur.toString() }}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex="30">
+        <label style="padding:0 0 5px 5px;">Type d'établissement</label>
+      	<md-select ng-model="interventionSectionCtrl.selectedEtablissementType"
+                   ng-change="interventionSectionCtrl.filterPlages()"
+                   aria-label="Choix du type d'établissement">
+          <md-option ng-repeat="type in interventionSectionCtrl.etablissementTypes"
+          					 ng-value="type">
+          	{{ type.toString() }}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <div layout="row" layout-wrap>
+  		<plage-intervention-card flex="33"
+  														 plage="plage" 
+  														 ng-repeat="plage in interventionSectionCtrl.plages">
+  	  </plage-intervention-card>
+    </div>
+  </div>
+</div>

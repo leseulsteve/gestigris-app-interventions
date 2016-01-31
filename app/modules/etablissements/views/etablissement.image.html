@@ -1,1 +1,4 @@
-<img ng-src="{{ etablissement.imageUrl }}" alt="{{ etablissement.toString() }}">
+<img ng-show="image" ng-src="{{ image }}" alt="{{ etablissement.toString() }}">
+<div layout="column" layout-align="center center" style="height:100%;">
+	<p ng-show="!image" class="md-headline" style="text-align: center;">{{ etablissement.toString() }}</p>
+</div>

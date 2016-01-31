@@ -11,9 +11,14 @@ md-chip-template {
   vertical-align: top;
 }
 
+etablissement-image {
+  height: 200px !important;
+  width: 288px !important;
+}
+
 etablissement-image img {
   height: 200px !important;
-  width: 290px !important;
+  width: 288px !important;
 }
 
 .intervention_tag {

@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('etablissements').factory('Etablissement',
-  function () {
+  function (Schema) {
 
-    var Etablissement = function (params) {
-      _.assign(this, params);
-    };
+    var Etablissement = new Schema('etablissement');
 
     Etablissement.prototype.toString = function () {
       return this.name;
+    };
+
+    Etablissement.prototype.getImageUrl = function () {
+      return this.imageUrl;
     };
 
     return Etablissement;

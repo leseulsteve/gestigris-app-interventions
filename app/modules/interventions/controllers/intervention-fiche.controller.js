@@ -1,17 +1,32 @@
 'use strict';
 
 angular.module('interventions').controller('InterventionFicheController',
-  function ($scope, PlageIntervention, $stateParams, $timeout) {
+  function ($rootScope, $scope, $timeout, Etablissement, $stateParams) {
 
     var ctrl = this;
-    $scope.interventionFicheCtrl = ctrl;
 
-    PlageIntervention.findById($stateParams.plageInterventionId).then(function (plageIntervention) {
-      $timeout(function () {
+    $rootScope.$watch('plagesInterventions', function (plages) {
+      if (plages) {
+
+        var plageIntervention = _.find(plages.all, '_id', $stateParams.plageInterventionId);
+
+        plageIntervention.getInterventions().then(function (interventions) {
+          ctrl.interventions = interventions;
+        });
+
+        Etablissement.findById(plageIntervention.etablissement._id).then(function (etablissement) {
+          ctrl.etablissement = etablissement;
+        });
 
         ctrl.plageIntervention = plageIntervention;
+      }
+    });
 
-      }, 1000);
+    $scope.$on('imageLoaded', function () {
+      $scope.showCard = true;
+      $timeout(function () {
+        $scope.showMap = true;
+      });
     });
 
   });

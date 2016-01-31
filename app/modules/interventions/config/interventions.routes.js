@@ -7,13 +7,15 @@ angular.module('interventions')
 
     state('interventions', {
       url: '/interventions',
-      templateUrl: 'modules/interventions/views/interventions.section.html',
-      controller: 'InterventionSectionController'
+      templateUrl: 'modules/interventions/views/plage-intervention.section.html',
+      controller: 'InterventionSectionController',
+      controllerAs: 'interventionSectionCtrl'
     }).
 
     state('intervention', {
       url: '/interventions/:plageInterventionId',
-      templateUrl: 'modules/interventions/views/plage-intervention.section.html',
-      controller: 'InterventionFicheController'
+      templateUrl: 'modules/interventions/views/plage-intervention.fiche.html',
+      controller: 'InterventionFicheController',
+      controllerAs: 'interventionFicheCtrl'
     });
   });
