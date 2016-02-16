@@ -4,7 +4,7 @@ angular.module('core').service('Toast',
   function ($mdMedia, $mdToast) {
 
     var Toast = function (params) {
-      this.position = $mdMedia('sm') ? 'bottom fit' : 'bottom left';
+      this.position = $mdMedia('sm') ? 'bottom fit' : 'bottom right';
 
       if (_.isString(params)) {
         this.template = '<md-toast>' + params + '</md-toast>';

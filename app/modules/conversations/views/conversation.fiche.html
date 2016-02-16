@@ -2,13 +2,13 @@
   	 class="md-whiteframe-1dp">
   <div layout="row">
 		<conversation-image flex="30" conversation="conversation"></conversation-image>
-		<div flex layout="column">
-			<div>Options de notifications</div>
-			<div>Description</div>
-			<div>Participants</div>
-			<div layout="row" layout-wrap
-					 ng-repeat="participant in conversation.getParticipants()">
-				<avatar user="participant"></avatar>
+		<div flex layout="row" layout-align="start center">
+			<div layout="column">
+				<div>Participants</div>
+				<div layout="row" layout-wrap
+					 	 ng-repeat="participant in conversation.getParticipants()">
+					<avatar user="participant"></avatar>
+				</div>
 			</div>
 		</div>
 	</div>

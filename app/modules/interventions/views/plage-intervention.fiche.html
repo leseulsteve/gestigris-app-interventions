@@ -6,9 +6,9 @@
   <div class="md-whiteframe-1dp" ng-show="showCard">
 	  <div layout="row">
 			<etablissement-image height="200px" width="290px" etablissement="interventionFicheCtrl.etablissement"></etablissement-image>
-			<div ng-if="showMap">
+			<!--<div ng-if="showMap">
 				<etablissement-map  height="200px" width="625px" etablissement="interventionFicheCtrl.etablissement"></etablissement-map>
-			</div>
+			</div>-->
 		</div>
 		<md-divider></md-divider>
 			<div layout="row" layout-margin>
@@ -21,20 +21,27 @@
 						</div>
 					</div>
 					<md-list>
-	      		<md-list-item ng-repeat="intervention in interventionFicheCtrl.interventions">
-	      			
-	      			<div flex layout="column">
-	      				<div layout="row">
-									{{ intervention.date.start.hours() }}:{{ intervention.date.start.minutes() }} - {{ intervention.date.end.hours() }}:{{ intervention.date.end.minutes() }}
+	      		<md-list-item layout="column" ng-repeat="intervention in interventionFicheCtrl.interventions">
+	      			<div flex style="width:100%" layout="row">
+	      				<div flex layout="column">
+	      					<div>
+										{{ intervention.date.start.hours() }}:{{ intervention.date.start.minutes() }} - {{ intervention.date.end.hours() }}:{{ intervention.date.end.minutes() }}
+									</div>
+									<div layout="row">
+										<span class="md-caption intervention_tag"
+										 			ng-repeat="tag in intervention.tags">
+	          					{{ tag.name }}
+	        					</span>
+									</div>
 								</div>
-								<div layout="row">
-									<span class="md-caption intervention_tag"
-										 		ng-repeat="tag in intervention.tags">
-	          				{{ tag.name }}
-	        				</span>
-								</div>
+								<participation-button intervention="intervention"></participation-button>
 	      			</div>
-							<participation-button intervention="intervention"></participation-button>
+							<div layout="column" style="width:100%" ng-if="intervention.isConfirmed()">
+								<div class="md-caption">Participants</div>
+								<div layout="row">
+									<avatar user="participant" ng-repeat="participant in intervention.participants"></avatar>
+								</div>
+							</div>
 							<md-divider ng-if="!$last"></md-divider>
 						</md-list-item>
 					</md-list>			
@@ -45,6 +52,8 @@
 				</div>
 			</div>
 	</div>
-
-	<!--<intervention-timeline></intervention-timeline>-->
+	<div ng-if="interventionFicheCtrl.plageIntervention.hasConfirmed()">
+		<h3>Conversation avec les participants</h3>		
+		<conversation conversation="interventionFicheCtrl.plageIntervention.conversation"></conversation>
+	</div>
 </div>

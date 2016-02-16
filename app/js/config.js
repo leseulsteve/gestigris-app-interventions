@@ -9,14 +9,14 @@ var ApplicationConfiguration = (function () {
     'ngSanitize',
     'ui.router',
     'ngMaterial',
+    'leseulsteve.angular-mongoose',
     'leseulsteve.angular-user-auth',
     'ngMessages',
     'leaflet-directive',
     'pascalprecht.translate',
-    'leseulsteve.angular-mongoose',
     'uuid',
-    'angular-timeline',
-    'btford.socket-io'
+    'btford.socket-io',
+    'ngImgCrop'
   ];
 
   // Add a new vertical module

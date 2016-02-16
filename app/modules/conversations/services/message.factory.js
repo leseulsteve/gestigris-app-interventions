@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('conversations').factory('Message',
-  function (Schema, User) {
+  function (Schema, User, UserAuth) {
 
-    var Message = new Schema('message');
+    var Message = new Schema('conversation/:conversation/message');
 
     Message.post('find', function (next) {
       this.author = new User(this.author);
@@ -12,6 +12,12 @@ angular.module('conversations').factory('Message',
 
     Message.prototype.getAuthor = function () {
       return this.author;
+    };
+
+    var currentUser = UserAuth.getCurrentUser();
+
+    Message.prototype.currentUserIsAuthor = function () {
+      return currentUser.equals(this.getAuthor());
     };
 
     return Message;

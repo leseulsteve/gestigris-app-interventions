@@ -2,18 +2,20 @@
 <md-list-item class="md-2-line"
 							ui-sref-active="active"
               ui-sref="intervention({plageInterventionId: plage._id})"
-              ng-repeat="plage in plages">
+              ng-repeat="plage in plages | limitTo : chunkSize">
   <div class="md-list-item-text">
     <h3>{{ plage.date.format("dddd LL") }}</h3>
     <div layout="row">
-      <small ng-show="plage.filteredInterventions" ng-repeat="intervention in plage.filteredInterventions">{{ intervention.hours() }}:{{ intervention.minutes() }}<span ng-if="!last">&nbsp;&nbsp;</span></small>
+      <small ng-show="type === intervention.type" ng-repeat="intervention in plage.filteredInterventions">
+        {{ intervention.date.hours() }}:{{ intervention.date.minutes() }}
+      <span ng-if="!last">&nbsp;&nbsp;</span></small>
     </div>
     <h4>{{ plage.etablissement.name }}</h4>
   </div>
-  <md-icon class="md-accent" md-svg-icon="action:announcement"></md-icon>
+  <md-icon ng-show="plage.hasNewMessages()" class="md-accent" md-svg-icon="action:announcement"></md-icon>
   <md-divider ng-if="!$last"></md-divider>
 </md-list-item>
-<md-list-item ng-show="showPlus"
+<md-list-item ng-show="chunkSize < plages.length"
 							class="plus">
-  <span class="md-caption" ng-click="">plus</span>
+  <span class="md-caption" ng-click="showMore()">plus</span>
 </md-list-item>

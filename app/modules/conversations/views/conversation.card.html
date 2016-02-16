@@ -1,7 +1,7 @@
-<md-card ng-show="showCard"
+<md-card 
          ui-sref="conversation({conversationId: conversation._id})">
   <conversation-image conversation="conversation"></conversation-image>
   <div layout="row" layout-align="end center" layout-margin>
-    <div>{{ conversation.messages.length }} <md-icon class="md-accent" md-svg-icon="communication:message"></md-icon>
+    <div>{{ conversation.messages.length }} <md-icon ng-class="{ 'md-accent' : conversation.hasNewMessages() }" md-svg-icon="communication:message"></md-icon>
   </div>
 </md-card>

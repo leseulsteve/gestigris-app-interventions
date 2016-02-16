@@ -5,6 +5,8 @@ angular.module('navigation').directive('sideNav',
     return {
       restrict: 'E',
       templateUrl: 'modules/navigation/views/side-nav.html',
+      controller: 'SideNavController',
+      controllerAs: 'sideNavCtrl',
       link: function (scope) {
 
         $rootScope.$on('SideNav:show', function () {

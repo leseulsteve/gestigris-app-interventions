@@ -7,17 +7,28 @@ angular.module('conversations').directive('conversationSideNavList',
       scope: {
         title: '@',
         type: '@',
-        chuckSize: '@'
+        chunkSize: '@'
       },
       templateUrl: 'modules/conversations/views/conversation-side-nav.list.html',
       link: function (scope, element) {
+
         element.addClass('nav-list');
+
         $rootScope.$watch('conversations.equipe', function (conversations) {
           if (conversations) {
-            scope.showPlus = conversations.length > scope.chuckSize;
-            scope.conversations = _.slice(conversations, 0, scope.chuckSize);
+            scope.conversations = _.sortBy(conversations, function (conversation) {
+              var lastMessage = conversation.getLastMessage();
+              if (lastMessage) {
+                return new Date(lastMessage.created.date);
+              }
+            }).reverse();
           }
         });
+
+        scope.showMore = function () {
+          scope.chunkSize += scope.chunkSize;
+        };
+
       }
     };
   });

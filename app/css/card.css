@@ -28,8 +28,3 @@ etablissement-image img {
   white-space: nowrap;
   background-color: grey;
 }
-
-[ng-click],
-[ui-sref] {
-  cursor: pointer;
-}

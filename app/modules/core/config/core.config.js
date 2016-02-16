@@ -12,7 +12,7 @@ angular.module('core').config(
               urlPrefix = '';
 
             if (_.contains(['localhost', '127.0.0.1'], host)) {
-              urlPrefix = 'http://localhost:9001';
+              urlPrefix = 'http://localhost:9011';
             } else if (typeof cordova !== 'undefined' || typeof phonegap !== 'undefined') {} else {
               urlPrefix = 'http://' + host;
             }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('interventions').factory('Intervention',
-  function ($q, $http, Schema, Moment) {
+  function ($q, $http, Schema, Moment, Toast, User) {
 
     var Intervention = new Schema('plage-intervention/:plage/intervention');
 
@@ -10,6 +10,12 @@ angular.module('interventions').factory('Intervention',
       this.duree = Moment.duration(ms);
       this.date.start = new Moment(this.date.start);
       this.date.end = new Moment(this.date.end);
+
+      if (this.participants) {
+        this.participants = _.map(this.participants, function (participant) {
+          return new User(participant);
+        });
+      }
 
       this.listeners = {
         stateChange: []
@@ -43,6 +49,19 @@ angular.module('interventions').factory('Intervention',
     };
 
     function changeState(intervention, stateName) {
+
+      var toastMessage;
+      switch (stateName) {
+      case 'WAITING':
+        toastMessage = 'Votre demande a été envoyée.';
+        break;
+      case 'OPEN':
+        toastMessage = 'Votre demande a été annulée.';
+        break;
+      }
+      var toast = new Toast(toastMessage);
+      toast.show();
+
       if (stateName) {
         intervention.state = stateName;
       }
@@ -84,60 +103,11 @@ angular.module('interventions').factory('Intervention',
     Intervention.prototype.on = function (action, cb) {
       var that = this;
       this.listeners[action].push(cb);
-      /*if (!this.monitor.isMonitoring()) {
-        this.monitor.start(function (rawIntervention) {
-          _.assign(that, rawIntervention);
-          if (rawIntervention.status !== that.status) {
-            changeState(that);
-          }
-        });
-      }*/
       return function () {
         _.pull(that.listeners[action], cb);
-        /*if (that.listeners[action].length === 0) {
-          that.monitor.stop();
-        }*/
       };
     };
 
     return Intervention;
-
-    /*var Intervention = function (params) {
-
-      _.assign(this, params);
-
-      var ms = moment(this.date.end).diff(moment(this.date.start));
-      this.duree = Moment.duration(ms);
-      this.date.start = new Moment(this.date.start);
-      this.date.end = new Moment(this.date.end);
-
-      this.listeners = {
-        stateChange: []
-      };
-    };
-
-    
-
-  
-
-    
-    Intervention.prototype.on = function (action, cb) {
-      var that = this;
-      this.listeners[action].push(cb);
-      if (!this.monitor.isMonitoring()) {
-        this.monitor.start(function (rawIntervention) {
-          _.assign(that, rawIntervention);
-          if (rawIntervention.status !== that.status) {
-            changeState(that);
-          }
-        });
-      }
-      return function () {
-        _.pull(that.listeners[action], cb);
-        if (that.listeners[action].length === 0) {
-          that.monitor.stop();
-        }
-      };
-    };*/
 
   });

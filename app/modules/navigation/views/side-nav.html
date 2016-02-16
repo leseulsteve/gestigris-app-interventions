@@ -1,6 +1,6 @@
 <md-sidenav class="md-sidenav-left md-whiteframe-z2"
             md-component-id="side-nav"
-            md-is-locked-open="$mdMedia('gt-md')">
+            md-is-locked-open="$mdMedia('gt-sm')">
   <md-toolbar class="md-theme-indigo">
     <div layout="row">
       <md-menu>
@@ -9,7 +9,7 @@
         </md-button>
         <md-menu-content width="4">
           <md-menu-item>
-            <md-button>
+            <md-button ng-click="sideNavCtrl.showNotifications()">
                 <div layout="row">
                   <p flex>Notifications</p>
                   <md-icon md-menu-align-target md-svg-icon="social:notifications"></md-icon>
@@ -17,10 +17,18 @@
               </md-button>
             </md-menu-item>
             <md-menu-item>
-            <md-button>
+            <md-button ng-click="sideNavCtrl.showProfil()">
                 <div layout="row">
                   <p flex>Profil</p>
                   <md-icon md-menu-align-target md-svg-icon="action:account_circle"></md-icon>
+                </div>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="sideNavCtrl.logout()">
+                <div layout="row">
+                  <p flex>Déconnexion</p>
+                  <md-icon md-menu-align-target md-svg-icon="action:exit_to_app"></md-icon>
                 </div>
               </md-button>
             </md-menu-item>
@@ -29,34 +37,32 @@
       <h3 flex class="md-subhead">Gestigris - Interventions</h3>
     </div>
     <div layout="row" layout-align="start center" class="md-padding">
-      <md-icon class="md-accent" style="height: 60px;width: 60px;" md-svg-icon="action:face"></md-icon>
-      <div flex class="md-padding">Steve Boisvert</div>
+      <avatar user="currentUser"></avatar>
+      <div flex class="md-padding">{{ currentUser.toString() }}</div>
     </div>  
   </md-toolbar>
   <md-content>
     <md-list>
       <md-list-item ui-sref-active="active" ui-sref="conversations">
         <p>Conversations</p>
-        <md-icon class="md-accent" md-svg-icon="communication:message"></md-icon>
       </md-list-item>
       <conversation-side-nav-list ng-if="conversations.equipe.length > 0"
                                   title="De l'équipe"
-                                  chuckSize="5"
+                                  chunk-size="3"
                                   type="equipe">
       </conversation-side-nav-list>
       <md-divider></md-divider>
       <md-list-item ui-sref-active="active" ui-sref="interventions">
         <p>Interventions</p>
-        <md-icon md-svg-icon="navigation:expand_less"></md-icon>
       </md-list-item>
       <plage-side-nav-list ng-if="plagesInterventions.waiting.length > 0"
-                           title="En attention de confirmation"
-                           chuckSize="3"
+                           title="En attente de confirmation"
+                           chunk-size="3"
                            type="waiting">
       </plage-side-nav-list>
       <plage-side-nav-list ng-if="plagesInterventions.confirmed.length > 0"
                            title="Confirmées"
-                           chuckSize="3"
+                           chunk-size="3"
                            type="confirmed">
       </plage-side-nav-list>
     </md-list>

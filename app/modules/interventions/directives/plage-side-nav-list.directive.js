@@ -7,7 +7,7 @@ angular.module('interventions').directive('plageSideNavList',
       scope: {
         title: '@',
         type: '@',
-        chuckSize: '@'
+        chunkSize: '@'
       },
       templateUrl: 'modules/interventions/views/plage-side-nav.list.html',
       link: function (scope, element) {
@@ -21,12 +21,11 @@ angular.module('interventions').directive('plageSideNavList',
           var promises = [];
 
           promises.push(plage.getInterventions().then(function (interventions) {
-            var filteredInterventions = _.filter(interventions, function (intervention) {
-              return intervention.state.toLowerCase() === scope.type;
-            });
-
-            plage.filteredInterventions = _.map(filteredInterventions, function (intervention) {
-              return intervention.date.start;
+            plage.filteredInterventions = _.map(interventions, function (intervention) {
+              return {
+                date: intervention.date.start,
+                type: intervention.state.toLowerCase()
+              };
             });
 
             return plage;
@@ -35,17 +34,13 @@ angular.module('interventions').directive('plageSideNavList',
           return $q.all(promises);
         }
 
-        function setPlages(plages) {
-          scope.showPlus = plages.length > scope.chuckSize;
-          scope.plages = _.slice(plages, 0, scope.chuckSize);
-        }
-
-        var parsedPlages;
+        scope.showMore = function () {
+          scope.chunkSize += scope.chunkSize;
+        };
 
         var firstWatch = true;
         $rootScope.$watchCollection(toWatch, function (plages, oldPlages) {
           if (plages) {
-
             if (firstWatch) {
               firstWatch = false;
               var promises = [];
@@ -53,28 +48,33 @@ angular.module('interventions').directive('plageSideNavList',
                 promises.push(parsePlage(plage));
               });
               $q.all(promises).then(function (plages) {
-                parsedPlages = _.flatten(plages);
-                setPlages(parsedPlages);
+                scope.plages = _.flatten(_.sortBy(plages, 'date'));
               });
             } else {
 
               var removedPlages = _.difference(oldPlages, plages);
 
-              _.remove(parsedPlages, function (plage) {
+              _.remove(scope.plages, function (plage) {
                 return _.contains(_.pluck(removedPlages, '_id'), plage._id);
               });
 
               var addedPlagesPromises = [];
 
-              var addedPlages = _.difference(plages, oldPlages);
-
-              _.forEach(addedPlages, function (plage) {
+              _.forEach(_.difference(plages, oldPlages), function (plage) {
                 addedPlagesPromises.push(parsePlage(plage));
               });
 
+              _.forEach(scope.plages, function (plage) {
+                parsePlage(plage);
+              });
+
               $q.all(addedPlagesPromises).then(function (plages) {
-                parsedPlages = parsedPlages.concat(_.flatten(plages));
-                setPlages(parsedPlages);
+
+                _.forEach(_.flatten(plages), function (plage) {
+                  scope.plages.splice(_.sortedIndex(scope.plages, plage, function (item) {
+                    return item.date;
+                  }), 0, plage);
+                });
               });
             }
           }

@@ -10,9 +10,9 @@ angular.module('interventions').directive('plageInterventionCard',
       templateUrl: 'modules/interventions/views/plage-intervention.card.html',
       link: function (scope) {
 
-        scope.$on('imageLoaded', function () {
-          scope.showCard = true;
-        });
+        // scope.$on('imageLoaded', function () {
+        scope.showCard = true;
+        // });
 
         scope.limitTags = 2;
 

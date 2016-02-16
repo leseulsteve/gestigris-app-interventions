@@ -1,17 +1,27 @@
 'use strict';
 
 angular.module('interventions').factory('PlageIntervention',
-  function (Schema, Moment, Intervention) {
+  function (Schema, Moment, Intervention, Conversation) {
 
     var PlageIntervention = new Schema('plage-intervention');
 
-    PlageIntervention.postFind = function (plage, next) {
-      plage.date = new Moment(plage.date);
-      next();
-    };
-
     PlageIntervention.post('find', function (next) {
-      PlageIntervention.postFind(this, next);
+      this.date = new Moment(this.date);
+
+      this.listeners = {
+        stateChange: []
+      };
+
+      if (_.contains(this.states, 'CONFIRMED')) {
+        var that = this;
+        this.getConversation().then(function (conversation) {
+          that.conversation = conversation;
+          that.newMessages = conversation.hasNewMessages();
+          next();
+        });
+      } else {
+        next();
+      }
     });
 
     PlageIntervention.findProchaines = function () {
@@ -25,10 +35,21 @@ angular.module('interventions').factory('PlageIntervention',
         plage: this._id
       }).then(function (interventions) {
         _.forEach(interventions, function (intervention) {
-          intervention.plage = that._id;
+          intervention.on('stateChange', function () {
+            PlageIntervention.findById(that._id).then(function (plage) {
+              _.assign(that, _.omit(plage, 'listeners'));
+              _.forEach(that.listeners.stateChange, function (listener) {
+                listener(that);
+              });
+            });
+          });
         });
         return interventions;
       });
+    };
+
+    PlageIntervention.prototype.getConversation = function () {
+      return Conversation.findById(this.conversation);
     };
 
     PlageIntervention.prototype.hasOpen = function () {
@@ -41,6 +62,14 @@ angular.module('interventions').factory('PlageIntervention',
 
     PlageIntervention.prototype.hasConfirmed = function () {
       return _.contains(this.states, 'CONFIRMED');
+    };
+
+    PlageIntervention.prototype.hasNewMessages = function () {
+      return this.newMessages;
+    };
+
+    PlageIntervention.prototype.on = function (event, cb) {
+      this.listeners[event].push(cb);
     };
 
     return PlageIntervention;

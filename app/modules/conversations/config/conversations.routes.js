@@ -8,12 +8,14 @@ angular.module('conversations').config(
     state('conversations', {
       url: '/conversations',
       templateUrl: 'modules/conversations/views/conversations.section.html',
-      controller: 'ConversationsSectionController'
+      controller: 'ConversationsSectionController',
+      controllerAs: 'conversationsSectionCtrl'
     }).
 
     state('conversation', {
       url: '/conversations/:conversationId',
       templateUrl: 'modules/conversations/views/conversation.section.html',
-      controller: 'ConversationFicheController'
+      controller: 'ConversationFicheController',
+      controllerAs: 'conversationFicheCtrl'
     });
   });

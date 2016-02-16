@@ -12,7 +12,6 @@ angular.module('users').directive('login',
         };
 
         $timeout(function () {
-          console.log('YEAH!');
           scope.showLogin = true;
         }, 500);
 
@@ -54,7 +53,6 @@ angular.module('users').directive('login',
 
         $rootScope.$on('UserAuth:signin:fail', function ($event, reason) {
           var message = 'Impossible de se connecter, communiquez avec le GRIS';
-          console.log(reason);
           switch (reason.code) {
           case 'BadCredentials':
             message = 'Mauvais mot de passe ou nom d\'utilisateur';

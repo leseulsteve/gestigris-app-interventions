@@ -1,26 +1,28 @@
 <md-list>
-  <md-list-item class="md-2-line" ng-repeat="message in conversation.getMessages() | orderBy : 'date'">
+  <md-list-item class="md-2-line" ng-repeat="message in messages | orderBy : 'date'">
    	<avatar user="message.getAuthor()"></avatar>
     <div class="md-list-item-text" layout="column">
       <h3>{{ message.getAuthor().toString() }}</h3>
       <p>{{ message.body }}</p>
     </div>
-    <md-button ng-disabled="newMessage.author !== currentUser"
+    <md-button ng-show="message.currentUserIsAuthor()"
                ng-click="deleteMessage(message)">
       Supprimer
     </md-button>
   </md-list-item>
-  <md-divider ></md-divider>
-  <div layout="row">
+  <md-divider ng-if="messages.length > 0" style="margin: 14px 0 14px 0;"></md-divider>
+  <div layout="row" flex>
    	<avatar user="currentUser"></avatar>
-    <md-input-container>
+    <md-input-container flex>
       <label>Nouveau message</label>
-      <input ng-model="newMessage.body">
+      <input style="margin-top:10px;" ng-model="newMessage.body">
     </md-input-container>
+    <div layout="row" layout-align="center center" style="height: 74px;">
     <md-button class="md-primary"
                ng-disabled="newMessage === undefined || newMessage.body.length === 0"
                ng-click="addMessage(newMessage)">
       Envoyer
     </md-button>
+  </div>
   </div>
 </md-list>

@@ -9,14 +9,32 @@ angular.module('conversations').directive('conversation',
       },
       templateUrl: 'modules/conversations/views/conversation.html',
       link: function (scope) {
-        scope.addMessage = function (newMessage) {
-          newMessage = new Message(_.assign({
-            conversationId: scope.conversation._id,
-            author: $rootScope.currentUser._id
-          }, newMessage));
 
-          newMessage.save().then(function (message) {
+        scope.currentUser = $rootScope.currentUser;
+
+        var unwatch = scope.$watch('conversation', function (conversation) {
+          if (conversation) {
+            scope.messages = scope.conversation.getMessages();
+            unwatch();
+          }
+        });
+
+        scope.addMessage = function (newMessage) {
+
+          Message.create(_.assign({
+            conversation: scope.conversation._id,
+          }, newMessage)).then(function (message) {
+            scope.newMessage = {};
             scope.conversation.messages.push(message);
+
+            var isParticipating = false,
+              participants = scope.conversation.getParticipants();
+            _.forEach(participants, function (participant) {
+              isParticipating = participant.equals(message.author);
+            });
+            if (!isParticipating) {
+              participants.push(message.author);
+            }
           });
         };
 

@@ -1,0 +1,131 @@
+<md-content>
+  <md-tabs md-dynamic-height md-border-bottom>
+    <md-tab label="informations">
+      <md-content class="md-padding" layout="column">
+
+      	<form name="userProfileForm" ng-submit="profilCtrl.saveProfile(userProfileForm)" novalidate>
+
+	      	<div layout="row">
+
+	      		<div layout="column" flex="40" layout-align="center center">
+
+	      			<avatar class="profile" user="profilCtrl.user" click-to-update></avatar>
+
+	      		</div>
+
+	      		<span flex="10"></span>
+
+	      		<div layout="column" flex="40">
+
+			    	 	<md-input-container flex>
+				        <label>Prénom</label>
+				        <input name="prenom"
+				        			 required
+				               ng-model="profilCtrl.user.firstname">
+				        <ng-messages for="userProfileForm.prenom.$error" role="alert">
+	  							<ng-message when="required">requis.</ng-message>
+								</ng-messages>
+				      </md-input-container>
+
+				      <md-input-container flex>
+				        <label>Nom de famille</label>
+				        <input name="nom"
+				        			 required
+				        			 ng-model="profilCtrl.user.lastname">
+				       	<ng-messages for="userProfileForm.nom.$error" role="alert">
+	  							<ng-message when="required">requis.</ng-message>
+								</ng-messages>
+				      </md-input-container>
+
+				   	</div>
+
+			    </div>
+
+			    <div layout="row">
+
+		      	<md-input-container flex="40">
+		        	<label>Rôle</label>
+		        	<input name="titre"
+		        				 ng-model="profilCtrl.user.title" disabled>
+		      	</md-input-container>
+
+		      	<span flex="10"></span>
+
+		      	<md-input-container flex="40">
+		        	<label>Date de naissance</label>
+		        	<input name="dateNaissance"
+		        				 type="date"
+		        				 required
+		        				 ng-model="profilCtrl.user.dateNaissance">
+		        	<ng-messages for="userProfileForm.dateNaissance.$error" role="alert">
+  							<ng-message when="required">requis.</ng-message>
+							</ng-messages>
+		      	</md-input-container>
+
+		      </div>
+
+		      <div layout="row">
+
+		      	<md-input-container flex="40">
+		        	<label>Pseudo</label>
+		        	<input name="pseudo"
+		        				 required
+		        				 ng-model="profilCtrl.user.pseudo">
+		        	<ng-messages for="userProfileForm.pseudo.$error" role="alert">
+  							<ng-message when="required">requis.</ng-message>
+							</ng-messages>
+		      	</md-input-container>
+
+		      	<span flex="10"></span>
+
+		      	<md-input-container flex="40">
+		        	<label>Courriel</label>
+		        	<input name="email"
+		        				 required
+		        				 ng-model="profilCtrl.user.email" type="email">
+		        	<ng-messages for="userProfileForm.email.$error" role="alert">
+  							<ng-message when="required">requis.</ng-message>
+							</ng-messages>
+		      	</md-input-container>
+
+		      </div>
+
+		       <div layout="row">
+
+		      	<md-input-container flex="40">
+		        	<label>Nouveau mot de passe</label>
+		        	<input name="password"
+		        				 ng-model="profilCtrl.user.password" type="password">
+		      	</md-input-container>
+
+		      	<span flex="10"></span>
+
+		      	<md-input-container flex="40">
+		        	<label>Vérification mot de passe</label>
+		        	<input name="passwordMatch"
+		        				 ng-disabled="profilCtrl.user.password === undefined"
+		        				 ng-required="profilCtrl.user.password"
+		        				 ng-model="profilCtrl.user.passwordMatch" type="password">
+		        	<ng-messages for="userProfileForm.passwordMatch.$error" role="alert">
+  							<ng-message when="required">requis.</ng-message>
+							</ng-messages>
+		      	</md-input-container>
+
+		      </div>
+
+		      <div layout="row" layout-align="end center">
+		      	<md-button class="md-raised md-primary"
+		      						 ng-disabled="userProfileForm.$pristine"
+		      						 type="submit">
+		      		Sauvegarder
+		      	</md-button>
+		      </div>
+
+		    </form>
+
+      </md-content>
+    </md-tab>
+    <md-tab label="historique interventions">
+    </md-tab>
+	</md-tabs>
+</md-content>

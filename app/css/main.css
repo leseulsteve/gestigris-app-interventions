@@ -1,0 +1,8 @@
+body {
+  overflow-y: scroll;
+}
+
+[ng-click],
+[ui-sref] {
+  cursor: pointer;
+}
