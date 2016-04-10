@@ -14,9 +14,11 @@
         <md-input-container flex="60">
           <label>Titre de la conversation</label>
           <input name="title"
+                 md-maxlength="50"
                  required
                  ng-model="conversation.title">
           <ng-messages for="conversationForm.title.$error" role="alert">
+            <ng-message when="md-maxlength">un peu trop long!</ng-message>
             <ng-message when="required">requis.</ng-message>
           </ng-messages>
         </md-input-container>

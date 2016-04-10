@@ -9,6 +9,10 @@ angular.module('conversations').factory('ConversationService',
           $rootScope.conversations = {
             equipe: conversations
           };
+
+          $rootScope.$on('UserAuth:signout:success', function () {
+            $rootScope.conversations = undefined;
+          });
         });
       }
 

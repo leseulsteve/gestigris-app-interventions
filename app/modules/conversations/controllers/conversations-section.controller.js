@@ -37,7 +37,7 @@ angular.module('conversations').controller('ConversationsSectionController',
     };
 
     ctrl.cancel = function () {
-      $mdDialog.hide();
+      $mdDialog.cancel();
     };
 
   });

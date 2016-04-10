@@ -1,8 +1,26 @@
 'use strict';
 
 angular.module('core')
-  .config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-      .primaryPalette('indigo')
-      .accentPalette('pink');
-  });
+	.config(function($mdThemingProvider) {
+
+		var vertGris = $mdThemingProvider.extendPalette('green', {
+			'500': '859D47'
+		});
+
+		var orangeGris = $mdThemingProvider.extendPalette('orange', {
+			'A200': 'F26533'
+		});
+
+		var redGris = $mdThemingProvider.extendPalette('red', {
+    '500': 'EC2F58'
+		});
+
+		$mdThemingProvider.definePalette('vertGris', vertGris);
+		$mdThemingProvider.definePalette('orangeGris', orangeGris);
+		$mdThemingProvider.definePalette('redGris', redGris);
+
+		$mdThemingProvider.theme('default')
+			.primaryPalette('vertGris')
+			.accentPalette('orangeGris')
+			.warnPalette('redGris');
+	});

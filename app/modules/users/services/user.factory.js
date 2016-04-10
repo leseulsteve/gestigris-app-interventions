@@ -9,6 +9,18 @@ angular.module('users').factory('User',
       return this.pseudo;
     };
 
+    User.prototype.getFullName = function () {
+      return this.firstname + ' ' + this.lastname;
+    };
+
+    User.prototype.getTitle = function () {
+      return this.title;
+    };
+
+    User.prototype.hasCar = function () {
+      return this.voiture;
+    };
+
     User.prototype.getLastVisit = function () {
       var lastVisit = $window.localStorage.getItem('lastVisit');
       return lastVisit ? new Date(lastVisit) : undefined;

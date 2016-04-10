@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('conversations').factory('Conversation',
-  function (Schema, Message, User, UserAuth) {
+  function (Schema, Message, User, UserAuth, Moment) {
 
     var Conversation = new Schema('conversation');
 
@@ -11,6 +11,7 @@ angular.module('conversations').factory('Conversation',
         for (var i = 0; i < this.messages.length; i++) {
           this.messages[i] = new Message(this.messages[i]);
           this.messages[i].author = new User(this.messages[i].author);
+          this.messages[i].created.date = new Moment(this.messages[i].created.date);
         }
       }
 

@@ -1,0 +1,11 @@
+md-icon.WAITING {
+  color: rgb(255,194,14);
+}
+
+md-icon.CONFIRMED {
+  color: rgb(0,112,60);
+}
+
+md-icon.REFUSED {
+  color: rgb(238,47,88);
+}

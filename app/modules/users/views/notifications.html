@@ -3,28 +3,28 @@
   <div class="md-caption text-right" style="padding-right:14px;">Courriel</div>
   <md-list-item>
     <p>Demande de participation acceptée.</p>
-    <md-switch class="md-secondary"
+    <md-switch class="md-primary"
                ng-model="notificationsCtrl.config.intervention.accepted"
                ng-change="notificationsCtrl.saveConfig()">
     </md-switch>
   </md-list-item>
   <md-list-item>
     <p>Demande de participation refusée.</p>
-    <md-switch class="md-secondary"
+    <md-switch class="md-primary"
                ng-model="notificationsCtrl.config.intervention.refused"
                ng-change="notificationsCtrl.saveConfig()">
     </md-switch>
   </md-list-item>
   <md-list-item>
     <p>Confirmation de votre participation à une intervention.</p>
-    <md-switch class="md-secondary"
+    <md-switch class="md-primary"
                ng-model="notificationsCtrl.config.intervention.confirmed"
                ng-change="notificationsCtrl.saveConfig()">
     </md-switch>
   </md-list-item>
   <md-list-item>
     <p>Confirmation d'un autre bénévole à la même intervention.</p>
-    <md-switch class="md-secondary"
+    <md-switch class="md-primary"
                ng-model="notificationsCtrl.config.intervention.otherConfirmed"
                ng-change="notificationsCtrl.saveConfig()">
     </md-switch>
@@ -35,14 +35,14 @@
   <div class="md-caption text-right" style="padding-right:14px;">Courriel</div>
   <md-list-item>
     <p>Messages de l'équipe.</p>
-    <md-switch class="md-secondary"
+    <md-switch class="md-primary"
                ng-model="notificationsCtrl.config.messages.equipe"
                ng-change="notificationsCtrl.saveConfig()">
     </md-switch>
   </md-list-item>
   <md-list-item>
     <p>Nouveau message dans une intervention confirmée.</p>
-    <md-switch class="md-secondary"
+    <md-switch class="md-primary"
                ng-model="notificationsCtrl.config.messages.intervention"
                ng-change="notificationsCtrl.saveConfig()">
     </md-switch>

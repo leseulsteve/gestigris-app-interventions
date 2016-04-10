@@ -5,10 +5,10 @@
               ng-repeat="plage in plages | limitTo : chunkSize">
   <div class="md-list-item-text">
     <h3>{{ plage.date.format("dddd LL") }}</h3>
-    <div layout="row">
-      <small ng-show="type === intervention.type" ng-repeat="intervention in plage.filteredInterventions">
-        {{ intervention.date.hours() }}:{{ intervention.date.minutes() }}
-      <span ng-if="!last">&nbsp;&nbsp;</span></small>
+    <div layout="row" layout-wrap style="padding-top:4px">
+      <span ng-show="type === intervention.type" class="badge" ng-repeat="intervention in plage.filteredInterventions">
+        {{ intervention.date.format('HH:mm') }}
+      </span>
     </div>
     <h4>{{ plage.etablissement.name }}</h4>
   </div>

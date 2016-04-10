@@ -64,6 +64,10 @@ angular.module('interventions').factory('PlageIntervention',
       return _.contains(this.states, 'CONFIRMED');
     };
 
+    PlageIntervention.prototype.hasRefused = function () {
+      return _.contains(this.states, 'REFUSED');
+    };
+
     PlageIntervention.prototype.hasNewMessages = function () {
       return this.newMessages;
     };

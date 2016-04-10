@@ -1,14 +1,22 @@
 'use strict';
 
 angular.module('conversations').directive('conversation',
-  function ($rootScope, Message) {
+  function ($rootScope, $timeout, Message) {
     return {
       restrict: 'E',
       scope: {
         conversation: '='
       },
       templateUrl: 'modules/conversations/views/conversation.html',
-      link: function (scope) {
+      link: function (scope, element) {
+
+        var messagesContainer = element.find('md-content');
+
+        scope.scrollDown = function () {
+          $timeout(function () {
+            messagesContainer[0].scrollTop = messagesContainer[0].scrollHeight;
+          });
+        };
 
         scope.currentUser = $rootScope.currentUser;
 

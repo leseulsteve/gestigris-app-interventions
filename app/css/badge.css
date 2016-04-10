@@ -1,0 +1,10 @@
+.badge {
+  font-size: 12px;
+  letter-spacing: 0.020em;
+  line-height: 16px;
+  margin: 0px 4px 4px 0px;
+  padding: 4px 8px;
+  white-space: nowrap;
+  background-color: rgb(179,144,79);
+  color: #FFFFFF;
+}

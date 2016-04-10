@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('interventions').controller('InterventionFicheController',
-  function ($rootScope, $scope, $timeout, Etablissement, $stateParams) {
+  function ($rootScope, $scope, $timeout, Etablissement, $stateParams, $state) {
 
     var ctrl = this;
+
+    ctrl.close = function () {
+      $state.go('interventions');
+    };
 
     $rootScope.$watch('plagesInterventions', function (plages) {
       if (plages) {

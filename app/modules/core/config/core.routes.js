@@ -2,5 +2,5 @@
 
 angular.module('core')
   .config(function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/interventions');
   });

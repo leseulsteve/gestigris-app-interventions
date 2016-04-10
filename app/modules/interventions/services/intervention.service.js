@@ -32,6 +32,10 @@ angular.module('interventions').factory('InterventionService',
       init: function () {
         return PlageIntervention.findProchaines().then(function (plagesInterventions) {
 
+          plagesInterventions = _.sortBy(plagesInterventions, function (plage) {
+            return plage.date.unix();
+          });
+
           $rootScope.plagesInterventions = {
             all: plagesInterventions,
             open: [],
@@ -60,6 +64,10 @@ angular.module('interventions').factory('InterventionService',
 
             });
 
+          });
+
+          $rootScope.$on('UserAuth:signout:success', function () {
+            $rootScope.plagesInterventions = undefined;
           });
 
         });

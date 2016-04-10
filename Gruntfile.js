@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
       postDist: {
         files: [{
           dot: true,
-          src: ['<%= paths.app %>/css', '<%= paths.temp %>']
+          src: ['<%= paths.temp %>']
         }]
       }
     },
@@ -169,10 +169,12 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= paths.dist %>/scripts/custom.js',
-            '<%= paths.dist %>/scripts/vendor.js',
+            '<%= paths.dist %>/scripts/*.js',
             '<%= paths.dist %>/styles/*.css',
-            '<%= paths.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+            '<%= paths.dist %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= paths.dist %>/icons/{,*/}*.{svg}',
+            '<%= paths.dist %>/fonts/{,*/}*.*'
+
           ]
         }
       }
@@ -202,7 +204,8 @@ module.exports = function (grunt) {
         assetsDirs: ['<%= paths.dist %>/**/'],
         patterns: {
           js: [
-            [/(img\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+            [/(img\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images'],
+            [/(icons\/.*?\.(?:svg))/gm, 'Update the JS to reference our revved images']
           ]
         }
       }
@@ -227,9 +230,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= paths.app %>/img',
+          cwd: '<%= paths.app %>/icons',
           src: '{,*/}*.svg',
-          dest: '<%= paths.dist %>/img'
+          dest: '<%= paths.dist %>/icons'
         }]
       }
     },
@@ -282,6 +285,24 @@ module.exports = function (grunt) {
             '.htaccess',
             'index.html'
           ]
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= paths.app %>/fonts',
+          dest: '<%= paths.dist %>/fonts',
+          src: '*.*'
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= paths.app %>/icons',
+          dest: '<%= paths.dist %>/icons',
+          src: '*.*'
+        }, {
+          expand: true,
+          dot: true,
+          cwd: '<%= paths.app %>/translations',
+          dest: '<%= paths.dist %>/translations',
+          src: '*.*'
         }]
       }
     },
@@ -325,9 +346,9 @@ module.exports = function (grunt) {
         'newer:jsbeautifier:all'
       ],
       dist: [
-        'sass:dist',
+        //   'sass:dist',
         'imagemin',
-        'svgmin',
+        //  'copy:icons',
         'ngtemplates'
       ],
       dist2: [
@@ -371,7 +392,7 @@ module.exports = function (grunt) {
     return {
       options: {
         ignorePath: ['app/'],
-        min: true
+   //     min: true
       },
       localDependencies: {
         files: {
@@ -396,7 +417,7 @@ module.exports = function (grunt) {
     };
   }
 
-  grunt.registerTask('inject', function (mode) {
+  grunt.registerTask('inject', function(mode) {
     var injector;
     if (mode === 'dev') {
       injector = getDevInjector();
@@ -435,7 +456,7 @@ module.exports = function (grunt) {
     'concurrent:dist2',
     'copy:dist',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'rev',
     'usemin',
     'htmlmin',

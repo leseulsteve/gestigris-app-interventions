@@ -1,22 +1,24 @@
 'use strict';
 
 angular.module('core').run(
-  function ($rootScope, $q, InterventionService, ConversationService) {
+  function($rootScope, $q, InterventionService, ConversationService, $timeout) {
 
-    $rootScope.loadingApp = true;
+    $timeout(function() {
+      $rootScope.loadingApp = true;
+    });
 
-    $rootScope.$on('$stateChangeSuccess', function () {
+    $rootScope.$on('$stateChangeSuccess', function() {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
 
     function loadData() {
 
-      $q.all([InterventionService.init(), ConversationService.init()]).then(function () {
+      $q.all([InterventionService.init(), ConversationService.init()]).then(function() {
         $rootScope.loadingApp = false;
       });
     }
 
-    $rootScope.$on('UserAuth:signin:success', function () {
+    $rootScope.$on('UserAuth:signin:success', function() {
       loadData();
     });
 

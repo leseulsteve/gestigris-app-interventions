@@ -14,7 +14,7 @@ angular.module('conversations').config(
 
     state('conversation', {
       url: '/conversations/:conversationId',
-      templateUrl: 'modules/conversations/views/conversation.section.html',
+      templateUrl: 'modules/conversations/views/conversation.fiche.html',
       controller: 'ConversationFicheController',
       controllerAs: 'conversationFicheCtrl'
     });

@@ -1,20 +1,17 @@
-<md-card ng-show="showCard"
+<md-card ng-show="showCard" md-ink-ripple
          ui-sref="intervention({plageInterventionId: plage._id})">
   <etablissement-image height="200px" width="290px" etablissement-id="plage.etablissement._id"></etablissement-image>
   <md-divider></md-divider>
   <md-card-content>
-  	<div layout="row">
+  	<div layout="row" style="margin-bottom:10px;">
     	<div class="md-display-3">{{ plage.date.date() }}</div>
 			<div layout="column" style="padding-left:8px;">
-				<div class="md-headline">{{ plage.date.format("MMMM") }}</div>
-				<div>{{ plage.date.year() }}</div>
+				<div class="md-title">{{ plage.date.format('dddd') }}</div>
+				<div>{{ plage.date.format("MMMM") }} {{ plage.date.year() }}</div>
 			</div>
 		</div>
     <div layout="row" layout-wrap>
-      <div class="md-caption intervention_tag"
-           ng-repeat="tag in plage.tags | limitTo: limitTags">
-        {{ tag.name }}
-      </div>
+      <div class="badge" ng-repeat="tag in plage.tags | limitTo: limitTags">{{ tag.name }}</div>
       <div ng-if="plage.tags.length > 2" layout="row"
            layout-align="center center">
         <md-icon class="md-caption"
@@ -24,7 +21,14 @@
     </div>
   </md-card-content>
   <md-divider></md-divider>
-  <div layout="row" layout-align="center center" layout-margin>
+  <div layout="row" layout-margin>
+    <div layout="row" layout-align="center start">
+      <md-icon ng-if="plage.hasOpen()" md-svg-icon="action:favorite_border"></md-icon>
+      <md-icon class="WAITING" ng-if="plage.hasWaiting()" md-svg-icon="action:favorite"></md-icon>
+      <md-icon class="CONFIRMED" ng-if="plage.hasConfirmed()" md-svg-icon="navigation:check"></md-icon>
+      <md-icon class="REFUSED" ng-if="plage.hasRefused()" md-svg-icon="social:mood_bad"></md-icon>
+    </div>
+    <span flex></span>
     <ng-pluralize count="plage.interventions.length"
                   when="{'1': '{} intervention', 
                          'other': '{} interventions'}">

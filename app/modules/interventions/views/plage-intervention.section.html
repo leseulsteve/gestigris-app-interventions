@@ -1,12 +1,10 @@
-<div flex>
-  <div ng-hide="interventionSectionCtrl.plages"
-       layout="row" layout-align="center center" layout-margin>
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
-  <div ng-show="plagesInterventions">
-    <div layout="row" layout-align="end center" layout-margin>
-      <md-input-container flex="30">
-        <label style="padding:0 0 5px 5px;">Secteur</label>
+<md-content layout="column" flex>
+  
+  <md-subheader>
+    <div layout="column" layout-gt-sm="row">
+
+      <md-input-container style="margin:0;" flex="50">
+        <label>Secteur</label>
         <md-select ng-model="interventionSectionCtrl.selectedArrondissement"
                    ng-change="interventionSectionCtrl.filterPlages()"
                    aria-label="Choix du secteur">
@@ -16,23 +14,37 @@
           </md-option>
         </md-select>
       </md-input-container>
-      <md-input-container flex="30">
-        <label style="padding:0 0 5px 5px;">Type d'établissement</label>
-      	<md-select ng-model="interventionSectionCtrl.selectedEtablissementType"
+
+      <md-input-container style="margin:0;" flex="50">
+        <label>Type d'établissement</label>
+        <md-select ng-model="interventionSectionCtrl.selectedEtablissementType"
                    ng-change="interventionSectionCtrl.filterPlages()"
                    aria-label="Choix du type d'établissement">
           <md-option ng-repeat="type in interventionSectionCtrl.etablissementTypes"
-          					 ng-value="type">
-          	{{ type.toString() }}
+                     ng-value="type">
+            {{ type.toString() }}
           </md-option>
         </md-select>
       </md-input-container>
+
     </div>
-    <div layout="row" layout-wrap>
+  </md-subheader>
+    
+  <md-content layout="column" md-scroll-y flex>
+
+
+    <div ng-hide="interventionSectionCtrl.plages"
+         layout="row" layout-align="center center" layout-margin>
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <div layout="row" layout-wrap ng-show="plagesInterventions">
   		<plage-intervention-card flex="33"
   														 plage="plage" 
   														 ng-repeat="plage in interventionSectionCtrl.plages">
   	  </plage-intervention-card>
     </div>
-  </div>
-</div>
+
+  </md-content>
+  
+</md-content>

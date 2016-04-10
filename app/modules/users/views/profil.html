@@ -90,11 +90,23 @@
 
 		      </div>
 
-		       <div layout="row">
+		      <div layout="row">
 
 		      	<md-input-container flex="40">
+		        	<md-checkbox ng-model="profilCtrl.user.voiture" aria-label="Voiture">
+            		Je possède une voiture
+          		</md-checkbox>
+		      	</md-input-container>
+
+		      	<span flex="10"></span>
+
+		      </div>
+
+		       <div layout="row">
+		       	<input style="display:none">
+		      	<md-input-container flex="40">
 		        	<label>Nouveau mot de passe</label>
-		        	<input name="password"
+		        	<input name="password" autocomplete="off"
 		        				 ng-model="profilCtrl.user.password" type="password">
 		      	</md-input-container>
 

@@ -6,20 +6,13 @@ angular.module('core').config(
     $httpProvider.interceptors.push(function () {
       return {
         'request': function (config) {
+          if (!_.endsWith(config.url, '.html') && !_.endsWith(config.url, '.json') &&  !_.startsWith(config.url, 'http')) {
+            //var urlPrefix = 'http://vps54578.vps.ovh.ca:90',
+            var urlPrefix = 'http://localhost:9011',
 
-          if (!_.endsWith(config.url, '.html')) {
-            var host = window.location.hostname,
-              urlPrefix = '';
+              route = config.url.split('/')[config.url.split('/').length - 2];
 
-            if (_.contains(['localhost', '127.0.0.1'], host)) {
-              urlPrefix = 'http://localhost:9011';
-            } else if (typeof cordova !== 'undefined' || typeof phonegap !== 'undefined') {} else {
-              urlPrefix = 'http://' + host;
-            }
-
-            var route = config.url.split('/')[config.url.split('/').length - 2];
-
-            if (!_.contains(['img', 'icons', '/', 'translations'], route)) {
+            if (!_.contains(['img', 'icons', '/'], route)) {
               urlPrefix += '/api/v1';
               config.url = urlPrefix + '/' + config.url;
             }

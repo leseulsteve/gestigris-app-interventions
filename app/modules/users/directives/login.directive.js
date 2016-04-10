@@ -6,11 +6,6 @@ angular.module('users').directive('login',
       restrict: 'A',
       link: function (scope, element) {
 
-        scope.credentials = {
-          username: 'admin@gmail.com',
-          password: 'password'
-        };
-
         $timeout(function () {
           scope.showLogin = true;
         }, 500);
