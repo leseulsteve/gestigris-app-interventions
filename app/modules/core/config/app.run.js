@@ -7,10 +7,6 @@ angular.module('core').run(
       $rootScope.loadingApp = true;
     });
 
-    $rootScope.$on('$stateChangeSuccess', function() {
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-    });
-
     function loadData() {
 
       $q.all([InterventionService.init(), ConversationService.init()]).then(function() {
