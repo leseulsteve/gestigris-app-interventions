@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 angular.module('users').directive('login',
   function ($rootScope, $animate, Toast, $timeout, UserAuth) {
     return {
@@ -57,4 +57,4 @@ angular.module('users').directive('login',
         });
       }
     };
-  });
+  });*/

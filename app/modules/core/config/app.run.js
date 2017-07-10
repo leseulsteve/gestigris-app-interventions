@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('core').run(
-  function($rootScope, $q, InterventionService, ConversationService, $timeout) {
+  function ($rootScope, $q, InterventionService, ConversationService, $timeout) {
 
-    $timeout(function() {
+    $timeout(function () {
       $rootScope.loadingApp = true;
     });
 
     function loadData() {
 
-      $q.all([InterventionService.init(), ConversationService.init()]).then(function() {
+      $q.all([InterventionService.init(), ConversationService.init()]).then(function () {
         $rootScope.loadingApp = false;
       });
     }
 
-    $rootScope.$on('UserAuth:signin:success', function() {
+    $rootScope.$on('UserAuth:signin:success', function () {
       loadData();
     });
 

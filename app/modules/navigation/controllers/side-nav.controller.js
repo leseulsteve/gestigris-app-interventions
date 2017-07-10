@@ -1,9 +1,19 @@
 'use strict';
 
 angular.module('navigation').controller('SideNavController',
-  function (UserAuth, $state) {
+  function ($rootScope, UserAuth, $state) {
 
     var ctrl = this;
+
+    var currentUser = UserAuth.getCurrentUser();
+
+    if (currentUser && currentUser.isAuthentified()) {
+      ctrl.lockedOpen = true;
+    }
+
+    $rootScope.$on('UserAuth:signin:success', function () {
+      ctrl.lockedOpen = true;
+    });
 
     ctrl.showProfil = function () {
       $state.go('profil');

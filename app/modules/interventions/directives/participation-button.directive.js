@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('interventions').directive('participationButton',
-  function() {
+  function () {
     return {
       restrict: 'E',
       scope: {
         intervention: '='
       },
       templateUrl: 'modules/interventions/views/participation.button.html',
-      link: function(scope, element) {
+      link: function (scope, element) {
 
         var states = {
           'OPEN': {
@@ -30,14 +30,14 @@ angular.module('interventions').directive('participationButton',
         };
 
         scope.button = {
-          changeState: function() {
+          changeState: function () {
             switch (scope.intervention.getState()) {
-              case 'OPEN':
-                scope.intervention.register();
-                break;
-              case 'WAITING':
-                scope.intervention.unregister();
-                break;
+            case 'OPEN':
+              scope.intervention.register();
+              break;
+            case 'WAITING':
+              scope.intervention.unregister();
+              break;
             }
           },
           disabled: false
@@ -46,21 +46,21 @@ angular.module('interventions').directive('participationButton',
         var unlisten = angular.noop;
 
         function listenStateChange() {
-          unlisten = scope.intervention.on('stateChange', function(intervention) {
+          unlisten = scope.intervention.on('stateChange', function (intervention) {
             setState(intervention);
           });
         }
 
         var currentStateName,
-        mdIcon = element.find('md-icon');
+          mdIcon = element.find('md-icon');
 
         function setState(intervention, startListening) {
-        
+
           mdIcon.removeClass(currentStateName);
           currentStateName = intervention.getState();
           mdIcon.addClass(currentStateName);
 
-           scope.state = states[currentStateName];
+          scope.state = states[currentStateName];
 
           if (scope.state === states.OPEN ||  scope.state === states.WAITING) {
             scope.button.disabled = false;
@@ -76,7 +76,7 @@ angular.module('interventions').directive('participationButton',
 
         setState(scope.intervention, true);
 
-        scope.$on('$destroy', function() {
+        scope.$on('$destroy', function () {
           unlisten();
         });
       }

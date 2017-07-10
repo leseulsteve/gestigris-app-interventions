@@ -55,7 +55,7 @@ angular.module('interventions').directive('plageSideNavList',
               var removedPlages = _.difference(oldPlages, plages);
 
               _.remove(scope.plages, function (plage) {
-                return _.contains(_.pluck(removedPlages, '_id'), plage._id);
+                return _.includes(_.pluck(removedPlages, '_id'), plage._id);
               });
 
               var addedPlagesPromises = [];

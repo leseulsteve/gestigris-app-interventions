@@ -6,7 +6,7 @@ angular.module('users').factory('User',
     var User = new Schema('user');
 
     User.prototype.toString = function () {
-      return this.pseudo;
+      return this.getFullName();
     };
 
     User.prototype.getFullName = function () {

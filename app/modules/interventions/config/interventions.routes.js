@@ -5,7 +5,7 @@ angular.module('interventions')
 
     $stateProvider.
 
-    state('interventions', {
+    state('home', {
       url: '/interventions',
       templateUrl: 'modules/interventions/views/plage-intervention.section.html',
       controller: 'InterventionSectionController',

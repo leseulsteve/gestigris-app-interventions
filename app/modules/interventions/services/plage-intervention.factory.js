@@ -12,7 +12,7 @@ angular.module('interventions').factory('PlageIntervention',
         stateChange: []
       };
 
-      if (_.contains(this.states, 'CONFIRMED')) {
+      if (_.includes(this.states, 'CONFIRMED')) {
         var that = this;
         this.getConversation().then(function (conversation) {
           that.conversation = conversation;
@@ -53,19 +53,19 @@ angular.module('interventions').factory('PlageIntervention',
     };
 
     PlageIntervention.prototype.hasOpen = function () {
-      return _.contains(this.states, 'OPEN');
+      return _.includes(this.states, 'OPEN');
     };
 
     PlageIntervention.prototype.hasWaiting = function () {
-      return _.contains(this.states, 'WAITING');
+      return _.includes(this.states, 'WAITING');
     };
 
     PlageIntervention.prototype.hasConfirmed = function () {
-      return _.contains(this.states, 'CONFIRMED');
+      return _.includes(this.states, 'CONFIRMED');
     };
 
     PlageIntervention.prototype.hasRefused = function () {
-      return _.contains(this.states, 'REFUSED');
+      return _.includes(this.states, 'REFUSED');
     };
 
     PlageIntervention.prototype.hasNewMessages = function () {

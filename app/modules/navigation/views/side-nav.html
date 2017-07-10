@@ -1,6 +1,6 @@
 <md-sidenav class="md-sidenav-left md-whiteframe-2dp"
             md-component-id="side-nav"
-            md-is-locked-open="$mdMedia('gt-sm')" layout="column"> 
+            md-is-locked-open="{{ sideNavCtrl.isLockedOpen() }}" layout="column">
 
   <md-toolbar style="min-height: 160px;">
     <div layout="row">
@@ -35,16 +35,16 @@
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-      <h3 flex class="md-subhead">Gestigris - Interventions</h3>
+      <h3 flex class="md-subhead">{{ appName }}</h3>
     </div>
     <div layout="row" layout-align="start center" class="md-padding">
       <avatar user="currentUser"></avatar>
       <div flex class="md-padding">{{ currentUser.toString() }}</div>
-    </div>  
+    </div>
   </md-toolbar>
 
   <md-content layout="column" md-scroll-y flex>
-  
+
     <md-list>
       <md-list-item ui-sref-active="active" ui-sref="conversations">
         <p>Conversations</p>

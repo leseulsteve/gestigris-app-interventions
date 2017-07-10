@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('users').directive('avatar',
-  function($mdDialog) {
+  function ($mdDialog) {
     return {
       restrict: 'E',
       scope: {
         user: '='
       },
       templateUrl: 'modules/users/views/avatar.html',
-      compile: function(iElement, iAttrs) {
+      compile: function (iElement, iAttrs) {
 
         if (!_.isUndefined(iAttrs.clickToUpdate)) {
           iElement.append('<input style="display:none;" type="file"/>');
@@ -18,29 +18,29 @@ angular.module('users').directive('avatar',
 
         return function link(scope, element) {
 
-          scope.$watch('user', function(user) {
+          scope.$watch('user', function (user) {
             if (user) {
               scope.hasImage = !_.isUndefined(user.avatar);
             }
           }, true);
 
           if (!_.isUndefined(iAttrs.clickToUpdate)) {
-            
+
             var fileInput = element.find('input');
 
-            element.bind('click', function() {
+            element.bind('click', function () {
               fileInput[0].click();
             });
 
-            fileInput.bind('change', function($event) {
+            fileInput.bind('change', function ($event) {
 
               var reader = new FileReader();
 
               scope.myImage = '';
               scope.myCroppedImage = '';
 
-              reader.onload = function($event) {
-                scope.$apply(function() {
+              reader.onload = function ($event) {
+                scope.$apply(function () {
                   scope.myImage = $event.target.result;
                 });
 
@@ -52,15 +52,15 @@ angular.module('users').directive('avatar',
                   preserveScope: true
                 });
 
-                scope.change = function() {
+                scope.change = function () {
                   scope.user.avatar = scope.myCroppedImage;
-                  scope.user.save().then(function(savedUser) {
+                  scope.user.save().then(function (savedUser) {
                     $mdDialog.hide();
                     _.assign(scope.user, savedUser);
                   });
                 };
 
-                scope.cancel = function() {
+                scope.cancel = function () {
                   $mdDialog.hide();
                 };
               };
