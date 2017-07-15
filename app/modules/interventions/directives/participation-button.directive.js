@@ -57,7 +57,7 @@ angular.module('interventions').directive('participationButton',
         function setState(intervention, startListening) {
 
           mdIcon.removeClass(currentStateName);
-          currentStateName = intervention.getState();
+          currentStateName = intervention.getstatus();
           mdIcon.addClass(currentStateName);
 
           scope.state = states[currentStateName];

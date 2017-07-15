@@ -6,15 +6,16 @@ angular.module('interventions').controller('InterventionFicheController',
     var ctrl = this;
 
     ctrl.close = function () {
-      $state.go('interventions');
+      $state.go('home');
     };
 
     $rootScope.$watch('plagesInterventions', function (plages) {
       if (plages) {
 
-        var plageIntervention = _.find(plages.all, '_id', $stateParams.plageInterventionId);
+        var plageIntervention = _.find(plages.all, ['_id', $stateParams.plageInterventionId]);
 
         plageIntervention.getInterventions().then(function (interventions) {
+          console.log(interventions);
           ctrl.interventions = interventions;
         });
 
@@ -24,13 +25,6 @@ angular.module('interventions').controller('InterventionFicheController',
 
         ctrl.plageIntervention = plageIntervention;
       }
-    });
-
-    $scope.$on('imageLoaded', function () {
-      $scope.showCard = true;
-      $timeout(function () {
-        $scope.showMap = true;
-      });
     });
 
   });

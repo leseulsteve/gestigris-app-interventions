@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('interventions').controller('InterventionSectionController',
-  function ($rootScope, $q, EtablissementType, Arrondissement) {
+  function ($rootScope, $q, EtablissementType, CommissionScolaire) {
 
     var ctrl = this;
 
@@ -14,9 +14,12 @@ angular.module('interventions').controller('InterventionSectionController',
 
         promises.push(EtablissementType.find({
           _id: {
-            $in: _.uniq(_.map(plages.all, function (plage) {
-              return plage.etablissement.type;
-            }))
+            $in: _(plages.all)
+              .map(function (plage) {
+                return plage.etablissement.type;
+              })
+              .uniq()
+              .value()
           }
         }).then(function (etablissementTypes) {
 
@@ -26,35 +29,41 @@ angular.module('interventions').controller('InterventionSectionController',
           }));
 
           ctrl.etablissementTypes = etablissementTypes;
-          ctrl.selectedEtablissementType = ctrl.etablissementTypes[0];
+          ctrl.selectedEtablissementType = _.first(ctrl.etablissementTypes);
         }));
 
-        promises.push(Arrondissement.find({
+        promises.push(CommissionScolaire.find({
           _id: {
-            $in: _.uniq(_.map(plages.all, function (plage) {
-              return plage.etablissement.address.arrondissement;
-            }))
+            $in: _(plages.all)
+              .map(function (plage) {
+                return plage.etablissement.commissionScolaire;
+              })
+              .uniq()
+              .value()
           }
-        }).then(function (arrondissements) {
+        }).then(function (comissionScolaires) {
 
-          arrondissements.unshift(_.assign(new Arrondissement(), {
+          comissionScolaires.unshift(_.assign(new CommissionScolaire(), {
             _id: 0,
             name: 'Tous'
           }));
 
-          ctrl.arrondissements = arrondissements;
-          ctrl.selectedArrondissement = ctrl.arrondissements[0];
+          ctrl.comissionScolaires = comissionScolaires;
+          ctrl.selectedComissionScolaire = _.first(ctrl.comissionScolaires);
         }));
 
         $q.all(promises).then(function () {
 
           ctrl.filterPlages = function () {
-            ctrl.plages = ctrl.selectedEtablissementType._id === 0 ? plages.all : _.filter(plages.all, function (plage) {
-              return plage.etablissement.type === ctrl.selectedEtablissementType._id;
-            });
-            ctrl.plages = ctrl.selectedArrondissement._id === 0 ? ctrl.plages : _.filter(ctrl.plages, function (plage) {
-              return plage.etablissement.address.arrondissement === ctrl.selectedArrondissement._id;
-            });
+
+            ctrl.plages = _(plages.all)
+              .filter(function (plage) {
+                return ctrl.selectedComissionScolaire._id === 0 || plage.etablissement.commissionScolaire === ctrl.selectedComissionScolaire._id;
+              })
+              .filter(function (plage) {
+                return ctrl.selectedEtablissementType._id === 0 || plage.etablissement.type === ctrl.selectedEtablissementType._id;
+              })
+              .value();
           };
         });
       }

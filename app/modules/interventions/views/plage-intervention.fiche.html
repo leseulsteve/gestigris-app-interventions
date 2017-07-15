@@ -16,36 +16,27 @@
   	   layout="row" layout-align="center center" layout-margin>
   	<md-progress-circular md-mode="indeterminate"></md-progress-circular>
 	</div>
-	
+
 	<md-card ng-show="interventionFicheCtrl.plageIntervention" style="min-height:200px">
-	  <div layout="row">
-			<etablissement-image style="width:270px"
-													 etablissement="interventionFicheCtrl.etablissement">
-			</etablissement-image>
-			<div ng-if="showMap" flex>
-				<etablissement-map height="200px"
-													 width="100%"
-													 etablissement="interventionFicheCtrl.etablissement">
-				</etablissement-map>
-			</div>
-		</div>
+	  <etablissement-map height="200px"
+											 width="100%"
+											 etablissement="interventionFicheCtrl.etablissement">
+		</etablissement-map>
 	</md-card>
 
 	<!-- N'a pas d'intervention confirmée -->
 
 	<div ng-if="!interventionFicheCtrl.plageIntervention.hasConfirmed()"
-			 layout="row" layout-wrap>
+			 layout="row" layout-xs="column" layout-wrap>
 
-		<md-card flex="30" style="min-height:120px"
+		<md-card flex="30" flex-xs="100" style="min-height:120px;min-width:300px"
 						 ng-repeat="intervention in interventionFicheCtrl.interventions">
 			<md-card-header layout="column">
 				<md-card-header-text layout="row" layout-align="start center">
 	        <span class="md-title" flex>{{ intervention.date.start.format('HH:mm') }} - {{ intervention.date.end.format('HH:mm') }}</span>
 			   	<participation-button intervention="intervention"></participation-button>
 	      </md-card-header-text>
-	      <div layout="row">
-					<span class="badge" ng-repeat="tag in intervention.tags">{{ tag.name }}</span>
-			  </div>
+        <intervention-tags tags="intervention.tags"></intervention-tags>
 	    </md-card-header>
 		</md-card>
 
@@ -64,9 +55,7 @@
 		        <span class="md-title" flex>{{ intervention.date.start.format('HH:mm') }} - {{ intervention.date.end.format('HH:mm') }}</span>
 				   	<participation-button intervention="intervention"></participation-button>
 		      </md-card-header-text>
-		      <div layout="row" layout-wrap>
-						<span class="badge"ng-repeat="tag in intervention.tags">{{ tag.name }}</span>
-				  </div>
+          <intervention-tags tags="intervention.tags"></intervention-tags>
 		    </md-card-header>
 				<md-card-content style="padding-top:0px">
 				  <span class="md-subhead">Participants</span>
@@ -89,10 +78,10 @@
 
 				 	</md-card-content>
 			</md-card>
-	     
-			
+
+
 		</div>
-		
+
 		<div flex="60">
 			<md-card layout-margin flex style="min-height:270px">
 				<md-card-header>
@@ -105,6 +94,6 @@
 				</md-card-content>
 			</md-card>
 		</div>
-	
+
 	</div>
 </md-content>

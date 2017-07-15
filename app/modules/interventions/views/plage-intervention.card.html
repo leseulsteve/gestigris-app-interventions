@@ -1,24 +1,19 @@
-<md-card ng-show="showCard" md-ink-ripple
-         ui-sref="intervention({plageInterventionId: plage._id})">
-  <etablissement-image height="200px" width="290px" etablissement-id="plage.etablissement._id"></etablissement-image>
+<md-card>
+  <etablissement-map height="200px"
+      							 width="100%"
+       							 etablissement="plage.etablissement">
+  </etablissement-map>
   <md-divider></md-divider>
   <md-card-content>
-  	<div layout="row" style="margin-bottom:10px;">
+  	<div layout="row">
     	<div class="md-display-3">{{ plage.date.date() }}</div>
 			<div layout="column" style="padding-left:8px;">
-				<div class="md-title">{{ plage.date.format('dddd') }}</div>
-				<div>{{ plage.date.format("MMMM") }} {{ plage.date.year() }}</div>
+				<div class="md-title" style="padding-top: 6px;">{{ plage.date.format('dddd') }}</div>
+				<div style="line-height: 8px;">{{ plage.date.format("MMMM") }} {{ plage.date.year() }}</div>
 			</div>
+      <md-icon md-svg-icon="action:open_in_new" style="margin-right:0" ui-sref="intervention({ plageInterventionId: plage._id })"></md-icon>
 		</div>
-    <div layout="row" layout-wrap>
-      <div class="badge" ng-repeat="tag in plage.tags | limitTo: limitTags">{{ tag.name }}</div>
-      <div ng-if="plage.tags.length > 2" layout="row"
-           layout-align="center center">
-        <md-icon class="md-caption"
-                 md-svg-icon="{{ limitTags ? 'navigation:expand_more' : 'navigation:expand_less' }}"
-                 ng-click="showMoreTags($event)">
-      </div>
-    </div>
+    <intervention-tags tags="plage.tags"></intervention-tags>
   </md-card-content>
   <md-divider></md-divider>
   <div layout="row" layout-margin>
@@ -30,8 +25,8 @@
     </div>
     <span flex></span>
     <ng-pluralize count="plage.interventions.length"
-                  when="{'1': '{} intervention', 
+                  when="{'1': '{} intervention',
                          'other': '{} interventions'}">
-    </ng-pluralize>      
+    </ng-pluralize>
   </div>
 </md-card>

@@ -1,21 +1,21 @@
 <md-content layout="column" flex>
-  
-  <md-subheader>
-    <div layout="column" layout-gt-sm="row">
 
-      <md-input-container style="margin:0;" flex="50">
-        <label>Secteur</label>
-        <md-select ng-model="interventionSectionCtrl.selectedArrondissement"
+  <md-subheader>
+    <div layout="row" layout-xs="column">
+
+      <md-input-container style="margin-bottom:8px;margin-top:8px" flex="50" flex-xs="100">
+        <label>Comission scolaire</label>
+        <md-select ng-model="interventionSectionCtrl.selectedComissionScolaire"
                    ng-change="interventionSectionCtrl.filterPlages()"
-                   aria-label="Choix du secteur">
-          <md-option ng-repeat="secteur in interventionSectionCtrl.arrondissements"
-                     ng-value="secteur">
-            {{ secteur.toString() }}
+                   aria-label="Choix de la comission scolaire">
+          <md-option ng-repeat="comission in interventionSectionCtrl.comissionScolaires"
+                     ng-value="comission">
+            {{ comission.toString() }}
           </md-option>
         </md-select>
       </md-input-container>
 
-      <md-input-container style="margin:0;" flex="50">
+      <md-input-container style="margin:0;margin-top:8px" flex="50" flex-xs="100">
         <label>Type d'établissement</label>
         <md-select ng-model="interventionSectionCtrl.selectedEtablissementType"
                    ng-change="interventionSectionCtrl.filterPlages()"
@@ -29,22 +29,26 @@
 
     </div>
   </md-subheader>
-    
-  <md-content layout="column" md-scroll-y flex>
 
+  <md-content layout="column" md-scroll-y flex>
 
     <div ng-hide="interventionSectionCtrl.plages"
          layout="row" layout-align="center center" layout-margin>
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 
+    <div ng-show="interventionSectionCtrl.plages.length === 0" layout="column" layout-align="center center">
+      <md-icon md-svg-icon="social:mood_bad" style="height:150px;width:150px;margin:50px 0"></md-icon>
+      <div class="md-title">Aucune intervention à venir</div>
+    </div>
+
     <div layout="row" layout-wrap ng-show="plagesInterventions">
-  		<plage-intervention-card flex="33"
-  														 plage="plage" 
+  		<plage-intervention-card flex="30" flex-xs="100" style="min-width:300px"
+  														 plage="plage"
   														 ng-repeat="plage in interventionSectionCtrl.plages">
   	  </plage-intervention-card>
     </div>
 
   </md-content>
-  
+
 </md-content>

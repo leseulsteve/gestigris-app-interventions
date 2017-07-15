@@ -1,0 +1,7 @@
+<div layout="row" layout-wrap style="margin-top:10px;" ng-if="tags.length" ng-init="limitTags = 2">
+  <div class="badge" ng-repeat="tag in tags | limitTo: limitTags">{{ tag.name }}</div>
+  <md-icon md-svg-icon="hardware:{{ $parent.limitTags === 2 ? 'keyboard_arrow_right' : 'keyboard_arrow_left' }}"
+           ng-if="tags.length > 2" style="margin-left:0"
+           ng-click="$parent.limitTags = $parent.limitTags === 2 ? infinity : 2">
+  </md-icon>
+</div>
