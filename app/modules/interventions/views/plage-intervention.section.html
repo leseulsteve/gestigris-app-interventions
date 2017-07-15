@@ -1,9 +1,20 @@
 <md-content layout="column" flex>
 
-  <md-subheader>
-    <div layout="row" layout-xs="column">
+  <md-toolbar class="md-accent" ng-hide="$mdMedia('gt-sm')">
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="menu" ng-click="interventionSectionCtrl.showSideNav()">
+        <md-icon md-svg-icon="navigation:menu"></md-icon>
+      </md-button>
+    	<h2>
+      	<span>Prochaines interventions</span>
+      </h2>
+    </div>
+  </md-toolbar>
 
-      <md-input-container style="margin-bottom:8px;margin-top:8px" flex="50" flex-xs="100">
+  <md-subheader>
+    <div layout="row">
+
+      <md-input-container style="margin:0" flex="50">
         <label>Comission scolaire</label>
         <md-select ng-model="interventionSectionCtrl.selectedComissionScolaire"
                    ng-change="interventionSectionCtrl.filterPlages()"
@@ -15,7 +26,7 @@
         </md-select>
       </md-input-container>
 
-      <md-input-container style="margin:0;margin-top:8px" flex="50" flex-xs="100">
+      <md-input-container style="margin:0" flex="50">
         <label>Type d'établissement</label>
         <md-select ng-model="interventionSectionCtrl.selectedEtablissementType"
                    ng-change="interventionSectionCtrl.filterPlages()"
@@ -42,8 +53,8 @@
       <div class="md-title">Aucune intervention à venir</div>
     </div>
 
-    <div layout="row" layout-wrap ng-show="plagesInterventions">
-  		<plage-intervention-card flex="30" flex-xs="100" style="min-width:300px"
+    <div layout="row" layout-wrap ng-show="plagesInterventions" class="md-margin">
+  		<plage-intervention-card flex="100" flex-gt-xs="50" flex-gt-md="33"
   														 plage="plage"
   														 ng-repeat="plage in interventionSectionCtrl.plages">
   	  </plage-intervention-card>

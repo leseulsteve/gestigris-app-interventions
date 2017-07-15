@@ -27,19 +27,18 @@
 	<!-- N'a pas d'intervention confirmée -->
 
 	<div ng-if="!interventionFicheCtrl.plageIntervention.hasConfirmed()"
-			 layout="row" layout-xs="column" layout-wrap>
-
-		<md-card flex="30" flex-xs="100" style="min-height:120px;min-width:300px"
-						 ng-repeat="intervention in interventionFicheCtrl.interventions">
-			<md-card-header layout="column">
-				<md-card-header-text layout="row" layout-align="start center">
-	        <span class="md-title" flex>{{ intervention.date.start.format('HH:mm') }} - {{ intervention.date.end.format('HH:mm') }}</span>
-			   	<participation-button intervention="intervention"></participation-button>
-	      </md-card-header-text>
-        <intervention-tags tags="intervention.tags"></intervention-tags>
-	    </md-card-header>
-		</md-card>
-
+			 layout="row" layout-wrap>
+    <div flex="100" flex-gt-xs="50" flex-gt-md="30" ng-repeat="intervention in interventionFicheCtrl.interventions">
+  		<md-card style="min-height:120px;">
+  			<md-card-header layout="column">
+  				<md-card-header-text layout="row" layout-align="start center">
+  	        <span class="md-title" flex>{{ intervention.date.start.format('HH:mm') }} - {{ intervention.date.end.format('HH:mm') }}</span>
+  			   	<participation-button intervention="intervention"></participation-button>
+  	      </md-card-header-text>
+          <intervention-tags tags="intervention.tags"></intervention-tags>
+  	    </md-card-header>
+  		</md-card>
+    </div>
 	</div>
 
 	<!-- A au moins une intervention confirmée -->

@@ -10,7 +10,7 @@ angular.module('users').factory('User',
     };
 
     User.prototype.getFullName = function () {
-      return this.firstname + ' ' + this.lastname;
+      return this.prenom + ' ' + this.nomFamille;
     };
 
     User.prototype.getTitle = function () {

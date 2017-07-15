@@ -27,7 +27,7 @@
   </head>
 
   <body layout="row">
-    <side-nav></side-nav>
+    <side-nav layout="column"></side-nav>
     <div layout="column" role="main" flex>
       <md-progress-linear ng-show="loadingRoute" md-mode="indeterminate"></md-progress-linear>
       <section ui-view layout="column" flex></section>
@@ -104,7 +104,6 @@
         <script src="modules/interventions/directives/plage-intervention-card.directive.js"></script>
         <script src="modules/interventions/directives/plage-side-nav-list.directive.js"></script>
         <script src="modules/navigation/directives/side-nav.directive.js"></script>
-        <script src="modules/users/directives/avatar.directive.js"></script>
         <script src="modules/users/directives/login.directive.js"></script>
         <script src="modules/conversations/controllers/conversation-fiche.controller.js"></script>
         <script src="modules/conversations/controllers/conversations-section.controller.js"></script>

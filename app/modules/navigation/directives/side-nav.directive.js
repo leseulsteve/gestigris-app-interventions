@@ -12,11 +12,11 @@ angular.module('navigation').directive('sideNav',
         scope.appName = APP.name;
 
         $rootScope.$on('SideNav:show', function () {
-          $mdSidenav('left').toggle();
+          $mdSidenav('side-nav').toggle();
         });
 
         scope.closeSideNav = function () {
-          $mdSidenav('left').close();
+          $mdSidenav('side-nav').close();
         };
       }
     };

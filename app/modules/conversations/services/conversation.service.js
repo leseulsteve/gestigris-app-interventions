@@ -6,6 +6,7 @@ angular.module('conversations').factory('ConversationService',
 
       init: function () {
         return Conversation.getFromTeam().then(function (conversations) {
+          console.log(conversations);
           $rootScope.conversations = {
             equipe: conversations
           };

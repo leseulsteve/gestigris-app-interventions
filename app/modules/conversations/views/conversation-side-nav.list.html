@@ -4,7 +4,7 @@
               ui-sref="conversation({conversationId: conversation._id})"
               ng-repeat="conversation in conversations | limitTo : chunkSize">
   <div class="md-list-item-text">
-    <h3>{{ conversation.getTitle() }}</h3>
+    <md-truncate>{{ conversation.getTitle() }}</md-truncate>
   </div>
   <md-icon ng-show="conversation.hasNewMessages()" class="md-accent" md-svg-icon="action:announcement"></md-icon>
   <md-divider ng-if="!$last"></md-divider>

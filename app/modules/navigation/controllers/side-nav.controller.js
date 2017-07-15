@@ -8,11 +8,11 @@ angular.module('navigation').controller('SideNavController',
     var currentUser = UserAuth.getCurrentUser();
 
     if (currentUser && currentUser.isAuthentified()) {
-      ctrl.lockedOpen = true;
+      ctrl.showSideNav = true;
     }
 
     $rootScope.$on('UserAuth:signin:success', function () {
-      ctrl.lockedOpen = true;
+      ctrl.showSideNav = true;
     });
 
     ctrl.showProfil = function () {

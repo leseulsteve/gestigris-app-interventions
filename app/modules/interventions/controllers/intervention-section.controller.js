@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('interventions').controller('InterventionSectionController',
-  function ($rootScope, $q, EtablissementType, CommissionScolaire) {
+  function ($rootScope, $q, $mdSidenav, EtablissementType, CommissionScolaire) {
 
     var ctrl = this;
+
+    ctrl.showSideNav = function () {
+      $rootScope.$broadcast('SideNav:show');
+    };
 
     $rootScope.$watch('plagesInterventions', function (plages) {
       if (plages) {
