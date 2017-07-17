@@ -31,7 +31,7 @@ angular.module('interventions').directive('participationButton',
 
         scope.button = {
           changeState: function () {
-            switch (scope.intervention.getState()) {
+            switch (scope.intervention.getstatus()) {
             case 'OPEN':
               scope.intervention.register();
               break;
@@ -56,6 +56,8 @@ angular.module('interventions').directive('participationButton',
 
         function setState(intervention, startListening) {
 
+          console.log(intervention.getstatus());
+
           mdIcon.removeClass(currentStateName);
           currentStateName = intervention.getstatus();
           mdIcon.addClass(currentStateName);
@@ -70,7 +72,6 @@ angular.module('interventions').directive('participationButton',
           } else {
             scope.button.disabled = true;
             unlisten();
-
           }
         }
 

@@ -52,8 +52,7 @@ angular.module('users').directive('login',
           case 'BadCredentials':
             message = 'Mauvais mot de passe ou nom d\'utilisateur';
           }
-          var errorToast = new Toast(message);
-          errorToast.show();
+          Toast.show(message);
         });
       }
     };

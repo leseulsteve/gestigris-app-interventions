@@ -32,7 +32,7 @@
   		<md-card style="min-height:120px;">
   			<md-card-header layout="column">
   				<md-card-header-text layout="row" layout-align="start center">
-  	        <span class="md-title" flex>{{ intervention.date.start.format('HH:mm') }} - {{ intervention.date.end.format('HH:mm') }}</span>
+  	        <span class="md-title" flex>{{ intervention.date.start.format('HH:mm') }} - {{ intervention.date.end.format('HH:mm') }} <small>({{ intervention.duree.asMinutes() }} mins)</small></span>
   			   	<participation-button intervention="intervention"></participation-button>
   	      </md-card-header-text>
           <intervention-tags tags="intervention.tags"></intervention-tags>

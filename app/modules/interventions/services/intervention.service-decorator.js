@@ -3,13 +3,12 @@
 angular.module('interventions').config(
   function ($provide) {
 
-    $provide.decorator('Intervention', function ($delegate, $q, $http, Moment, Toast, User) {
+    $provide.decorator('Intervention', function ($delegate, $q, $http, Moment, Toast, User, UserAuth) {
 
       var Intervention = $delegate;
 
       Intervention.post('find', function (next) {
-        var ms = new Moment(this.date.end).diff(new Moment(this.date.start));
-        this.duree = Moment.duration(ms);
+        this.duree = Moment.duration(new Moment(this.date.start).diff(this.date.end));
         this.date.start = new Moment(this.date.start);
         this.date.end = new Moment(this.date.end);
 
@@ -53,6 +52,7 @@ angular.module('interventions').config(
       function changestatus(intervention, statusName) {
 
         var toastMessage;
+
         switch (statusName) {
         case 'WAITING':
           toastMessage = 'Votre demande a été envoyée.';
@@ -61,13 +61,13 @@ angular.module('interventions').config(
           toastMessage = 'Votre demande a été annulée.';
           break;
         }
-        var toast = new Toast(toastMessage);
-        toast.show();
+
+        Toast.show(toastMessage);
 
         if (statusName) {
           intervention.status = statusName;
         }
-        _.forEach(intervention.listeners.statusChange, function (cb) {
+        _.forEach(intervention.listeners.stateChange, function (cb) {
           cb(intervention);
         });
       }
@@ -75,7 +75,12 @@ angular.module('interventions').config(
       Intervention.prototype.register = function () {
         if (this.canRegister()) {
           var that = this;
-          return $http.post('plage-intervention/' + this.plage + '/intervention/' + this._id + '/demande').then(function () {
+          return $http.post('demande-participation', {
+            intervention: that._id,
+            benevole: UserAuth.getCurrentUser()._id,
+            confirmed: true,
+            accepted: true
+          }).then(function () {
             changestatus(that, 'WAITING');
           });
         } else {
@@ -90,7 +95,7 @@ angular.module('interventions').config(
       Intervention.prototype.unregister = function () {
         if (this.canUnRegister()) {
           var that = this;
-          return $http.delete('plage-intervention/' + this.plage + '/intervention/' + this._id + '/demande').then(function () {
+          return $http.delete('demande-participation/' + this._id).then(function () {
             changestatus(that, 'OPEN');
           });
         } else {
